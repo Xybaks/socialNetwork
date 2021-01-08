@@ -1,0 +1,22 @@
+
+.nav {
+    grid-area: n;
+    background-color: darkgoldenrod;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+.item a.activeLink{
+    color: black;
+}
+.item a{
+    color: white;
+    text-decoration: none;
+}
+.friends a{
+    font-size: xx-large;
+    color: #0066ff;
+    text-decoration: none;
+}
+.friends a.activeLink{
+    color: black;
+}

@@ -1,0 +1,22 @@
+
+.allFriends {
+display: grid;
+    width: 200px;
+    margin: 0 auto;
+    /*grid-template-rows: -10px 1fr;*/
+    /*grid-template-columns: 2fr 4fr;*/
+    grid-template-areas:
+"ff ff ff"
+"fT fT fT";
+}
+
+
+.friendsText {
+    grid-area: fT;
+    color:darkgreen;
+    width: auto;
+}
+.someFriend{
+    width: auto;
+    grid-area: ff;
+}
