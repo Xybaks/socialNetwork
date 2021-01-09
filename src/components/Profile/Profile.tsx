@@ -9,14 +9,17 @@ import {profilePageType} from "../../redux/state";
 // MyPosts - компонент отрисовки  сообщений  на стене в профиле
 
 type ProfileProps = {
-    state: profilePageType
-    addPost:(postMessage: string) => void
+    profilePage: profilePageType //    передача постов
+    addPost:() => void  // добавление нового поста
+    updateNewPostText:(newText: string) => void // слежение за вводом текста и передача в state
 }
 const Profile: React.FC<ProfileProps> = (props) => {
 
     return (<div>
         <ProfileInfo/>
-        <MyPosts posts={props.state.posts}
+        <MyPosts posts={props.profilePage.posts}
+                 newPostText = {props.profilePage.newPostText}
+                 changeNewTextCallback = {props.updateNewPostText}
                  addPost={props.addPost}/>
     </div>)
 }

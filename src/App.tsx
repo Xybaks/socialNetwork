@@ -21,12 +21,13 @@ import {rootStateType} from "./redux/state";
 // Music - "Музыка"
 // Settings - "Настройки"
 
-type Apptype ={
+type AppType ={
     state:rootStateType
-    addPost:(postMessage: string) => void
+    addPost:() => void
+    updateNewPostText:(newText: string) => void
 }
 
-const App: React.FC<Apptype>=(props) =>{
+const App: React.FC<AppType>=(props) =>{
     // let friends = props.state.sidebar.navbar.friends
     return (
         <BrowserRouter>
@@ -34,9 +35,11 @@ const App: React.FC<Apptype>=(props) =>{
                 <Header/>
                 <Navbar friends={props.state.sidebar.friends} />
                 <div className='app-wrapper-content'>
-                    <Route path='/profile' render={() => <Profile
-                        state={props.state.profilePage}
-                        addPost={props.addPost} />}/>
+                    <Route path='/profile' render={() =>
+                        <Profile
+                        profilePage={props.state.profilePage}
+                        addPost={props.addPost}
+                        updateNewPostText={props.updateNewPostText }/>}/>
                     <Route path='/messages' render={() => <Dialogs state={props.state.dialogsPage} />}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>

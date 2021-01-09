@@ -1,4 +1,6 @@
-import {renderTree} from "../renderTree";
+let renderTree = () => {
+    console.log(state)
+}
 
 export type postsType = {
     id: number
@@ -8,6 +10,7 @@ export type postsType = {
 
 export type profilePageType = {
     posts: Array<postsType>
+    newPostText: string
 }
 
 export type dialogsType = {
@@ -47,7 +50,8 @@ let state: rootStateType = {
             {id: 3, message: "new meat in our garden", likesCount: 11},
             {id: 4, message: "hey", likesCount: 1},
             {id: 5, message: "YO", likesCount: 1}
-        ]
+        ],
+        newPostText: ""
     },
     dialogsPage: {
         dialogs: [
@@ -74,14 +78,25 @@ let state: rootStateType = {
     }
 }
 //добавление функции добовления поста в компоненту Profile
-export const addPost= (postMessage: string) => {
+export const addPost = () => {
     const newPost: postsType = {
-    id: 5,
-    message: postMessage,
-    likesCount: 0
-}
- state.profilePage.posts.push(newPost)
-    renderTree(state)
+        id: 5,
+        message: state.profilePage.newPostText,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ""
+    renderTree()
 }
 
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
+    renderTree()
+}
+
+export const subscribe = (observer:()=>void) => {
+    renderTree = observer //    паттерн наблюдатель - функция renderTree переопределена, вызывается та функция,
+    // что передана как observer
+}
 export default state
