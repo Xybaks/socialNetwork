@@ -1,32 +1,35 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {postsType} from "../../../redux/state";
+import {ActionTypes, addPostActionCreator, PostsType, UpdateNewPostActionCreator} from "../../../redux/state";
 
 type MyPostsType = {
-    posts: Array<postsType>
-    addPost: () => void
+    posts: Array<PostsType>
     newPostText: string
-    changeNewTextCallback: (newPostMessage: string) => void
+    dispatch:(action:ActionTypes) => void
 }
+
+
 
 const MyPosts: React.FC<MyPostsType> = (props) => {
 
+
+
     let postsElement = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
-
+//добавление поста
     function addSomePost() {
-        props.addPost()
+        props.dispatch(addPostActionCreator(props.newPostText))
     }
-
+// колбэк набранного текста в новом посте
     function onPostChange (e:  React.ChangeEvent<HTMLTextAreaElement>) {
-        props.changeNewTextCallback(e.currentTarget.value)
+        let newText:string=  e.currentTarget.value
+        props.dispatch(UpdateNewPostActionCreator(newText))
     }
 
 
     return (
         <div className={s.postsBlock}>
             <h3> My posts</h3>
-
             <div><textarea
                 onChange={onPostChange}
                 value={props.newPostText}

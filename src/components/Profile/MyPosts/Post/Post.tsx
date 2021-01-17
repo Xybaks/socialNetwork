@@ -1,11 +1,11 @@
 import React from 'react';
 import s from "./Post.module.css";
 import pic from "../../../pictures/avatar.jpg";
-import {postsType} from "../../../../redux/state";
+import {PostsType} from "../../../../redux/state";
 
 
 
-const Post: React.FC<postsType> = (props) =>
+const Post: React.FC<PostsType> = (props) =>
 {
     let like: string;
     if (props.likesCount === 1) like = "like"

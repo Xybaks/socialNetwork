@@ -1,45 +1,74 @@
-export type postsType = {
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+
+
+export type PostsType = {
     id: number
     message: string
     likesCount: number
 }
-export type profilePageType = {
-    posts: Array<postsType>
+export type ProfilePageType = {
+    posts: Array<PostsType>
     newPostText: string
 }
-export type dialogsType = {
+export type DialogsType = {
     id: number
     name: string
 }
-export type messagesType = {
+export type MessagesType = {
     id: number
     message: string
 }
-export type dialogsPageType = {
-    dialogs: Array<dialogsType>
-    messages: Array<messagesType>
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+    newMessageText: string
 }
-export type friendType = {
+export type FriendType = {
     id: number
     name: string
     avatarWay: string
 }
 export type SideBarType = {
-    friends: Array<friendType>
+    friends: Array<FriendType>
 }
-export type rootStateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType,
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType,
     sidebar: SideBarType
 }
 export type StoreType = {
-    _state: rootStateType,
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    _state: RootStateType,
     subscribe: (observer: () => void) => void
     _render: () => void
-    getState:() => rootStateType
+    getState: () => RootStateType
+    dispatch: (action: ActionTypes) => void
 }
+export type AddPostActionType = {
+    type: "ADD-POST"
+    newPostText: string
+}
+export type UpdateNewPostTextType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+export type AddMessageActionType = {
+    type: "ADD-MESSAGE"
+    newMessageText: string
+}
+export type SendMessageActionType = {
+    type: "SEND-MESSAGE"
+    sendMessageText: string
+}
+export type ActionTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | SendMessageActionType
+export const addPostActionCreator = (postText: string): AddPostActionType =>
+    ({type: "ADD-POST", newPostText: postText}) as const
+export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostTextType =>
+    ({type: "UPDATE-NEW-POST-TEXT", newText: newText}) as const
+export const UpdateNewMessageBodyActionCreator = (newMessageText: string): AddMessageActionType =>
+    ({type: "ADD-MESSAGE", newMessageText: newMessageText}) as const
+export const SendMessageActionCreator = (sendMessageText: string): SendMessageActionType =>
+    ({type: "SEND-MESSAGE", sendMessageText: sendMessageText}) as const
 
 let store: StoreType = {
     _state: {
@@ -54,6 +83,7 @@ let store: StoreType = {
             newPostText: ""
         },
         dialogsPage: {
+            newMessageText: "",
             dialogs: [
                 {id: 1, name: "Dimych"},
                 {id: 2, name: "Andrey"},
@@ -77,39 +107,39 @@ let store: StoreType = {
                 {id: 2, name: "Kate", avatarWay: "../../pictures/friend3.jpg"}]
         }
     },
-    //добавление функции добовления поста в компоненту Profile
-    addPost() {
-        if (this._state.profilePage.newPostText !=="")
-        {const newPost: postsType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._render()}
-    },
-    //   обновление текста, введенного в MyPosts
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText
-        this._render()
-
+    // перерисовка  state
+    _render() {
+        console.log(this._state)
     },
     //    паттерн наблюдатель - функция renderTree переопределена, вызывается та функция,
     // что передана как observer
     subscribe(observer) {
         this._render = observer //
     },
-    // перерисовка  state
-    _render() {
-        console.log(this._state)
-    },
     //геттер для state
-    getState(){
+    getState() {
         return this._state
+    },
+    dispatch(action: ActionTypes) {
+        // if (action.type === "ADD-POST") { //добавление функции добовления поста в компоненту Profile
+        //     if (this._state.profilePage.newPostText !== "") {
+        //         const newPost: PostsType = {
+        //             id: 5,
+        //             message: action.newPostText,
+        //             likesCount: 0
+        //         }
+        //         this._state.profilePage.posts.push(newPost)
+        //         this._state.profilePage.newPostText = ""
+        //         this._render()
+        //     }
+        // } else if (action.type === "UPDATE-NEW-POST-TEXT") { //   обновление текста, введенного в MyPosts
+        //     this._state.profilePage.newPostText = action.newText
+        //     this._render()
+
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.dialogsPage, action)
+        this._render()
     }
 }
-//добавление функции добовления поста в компоненту Profile
-
 
 export default store
