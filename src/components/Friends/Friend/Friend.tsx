@@ -1,6 +1,6 @@
 import image from "../../pictures/friend2.jpg"
 import s from "./Friend.module.css";
-import {FriendType} from "../../../redux/state";
+import {FriendType} from "../../../redux/store";
 import React from "react";
 
 const Friend: React.FC<FriendType>=(props) =>{

@@ -7,7 +7,7 @@ import {
     ActionTypes,
     DialogsPageType, SendMessageActionCreator,
     UpdateNewMessageBodyActionCreator,
-} from "../../redux/state";
+} from "../../redux/store";
 
 type DialogsType = {
     state: DialogsPageType

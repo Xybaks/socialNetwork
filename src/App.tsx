@@ -8,11 +8,11 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StoreType} from "./redux/state";
+import {StoreType} from "./redux/redux-store";
 
 
 
-// точка входа - index.tsx - куда передан  самописный компонент App с данными ot state.ts
+// точка входа - index.tsx - куда передан  самописный компонент App с данными ot store.ts
 // BrowserRouter  необходим для отрисовки   Route,  предназначенного для перехода между компонентами SPA
 // Header -  компонент отрисовки  шапки  SPA
 // Profile - компонент " Профиль"
@@ -27,19 +27,20 @@ type PropsType = {
 const App: React.FC<PropsType>=(props) =>{
 // можно теперь из пропсов вытягивать state  через getState()
 // const state = props.store.getState()
-
+debugger
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar friends={props.store.getState().sidebar.friends} />
+                <Navbar friends={props.store.getState().sidebar.friends}
+                />
                 <div className='app-wrapper-content'>
                     <Route path='/profile' render={() =>
                         <Profile
-                        profilePage={props.store.getState().profilePage}
+                        profilePage={props.store.getState().profile}
                         dispatch={props.store.dispatch.bind(props.store)}
                         />}/>
-                    <Route path='/messages' render={() => <Dialogs state={props.store.getState().dialogsPage}
+                    <Route path='/messages' render={() => <Dialogs state={props.store.getState().dialogs}
                                                                    dispatch={props.store.dispatch.bind(props.store)}/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>

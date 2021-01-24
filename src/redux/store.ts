@@ -29,13 +29,13 @@ export type FriendType = {
     name: string
     avatarWay: string
 }
-export type SideBarType = {
+export type SidebarType = {
     friends: Array<FriendType>
 }
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType,
-    sidebar: SideBarType
+    sidebar: SidebarType
 }
 export type StoreType = {
     _state: RootStateType,
@@ -52,6 +52,10 @@ export type UpdateNewPostTextType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
+export type UpdateSidebarActionType = {
+    type: "UPDATE-SIDEBAR"
+    newFiendId: string
+}
 export type AddMessageActionType = {
     type: "ADD-MESSAGE"
     newMessageText: string
@@ -60,9 +64,13 @@ export type SendMessageActionType = {
     type: "SEND-MESSAGE"
     sendMessageText: string
 }
-export type ActionTypes = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | SendMessageActionType
+
+export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
+    AddMessageActionType | SendMessageActionType|UpdateSidebarActionType
 export const addPostActionCreator = (postText: string): AddPostActionType =>
     ({type: "ADD-POST", newPostText: postText}) as const
+export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
+    ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostTextType =>
     ({type: "UPDATE-NEW-POST-TEXT", newText: newText}) as const
 export const UpdateNewMessageBodyActionCreator = (newMessageText: string): AddMessageActionType =>
@@ -136,8 +144,8 @@ let store: StoreType = {
         //     this._state.profilePage.newPostText = action.newText
         //     this._render()
 
-        profileReducer(this._state.profilePage, action)
-        dialogsReducer(this._state.dialogsPage, action)
+        profileReducer(this._state.profilePage, action) // добавление поста в компонент Profile
+        dialogsReducer(this._state.dialogsPage, action)// добавление сообщения в компонент Dialogs
         this._render()
     }
 }

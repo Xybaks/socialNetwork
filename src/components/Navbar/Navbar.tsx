@@ -2,9 +2,9 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from "./Navbar.module.css";
 import Friends from "../Friends/Friends";
-import {SideBarType} from "../../redux/state";
+import {SidebarType} from "../../redux/store";
 
-const Navbar: React.FC<SideBarType>=(props) =>{
+const Navbar: React.FC<SidebarType>=(props) =>{
     return (<nav className={s.nav}>
         <div className={s.item}>
             <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>

@@ -1,10 +1,10 @@
 import s from "./Friends.module.css";
 import Friend from "./Friend/Friend";
-import {SideBarType} from "../../redux/state";
+import {SidebarType} from "../../redux/store";
 import React from "react";
 
 
-const Friends: React.FC<SideBarType>=(props) =>{
+const Friends: React.FC<SidebarType>=(props) =>{
 
     let friendsNew = props.friends.map(f => <Friend name={f.name}
                                                            id={f.id}

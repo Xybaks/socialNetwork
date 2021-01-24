@@ -2,7 +2,7 @@ import React from 'react';
 
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionTypes, ProfilePageType} from "../../redux/state";
+import {ActionTypes, ProfilePageType} from "../../redux/store";
 
 // ProfileInfo - компонент отрисовки сведений профиля
 
