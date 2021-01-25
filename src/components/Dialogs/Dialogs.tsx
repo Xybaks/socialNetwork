@@ -3,32 +3,28 @@ import s from "./Dialogs.module.css"
 import {BrowserRouter} from "react-router-dom";
 import DialogItem from "./DialogItem/Dialog";
 import Message from "./Message/Message";
-import {
-    ActionTypes,
-    DialogsPageType, SendMessageActionCreator,
-    UpdateNewMessageBodyActionCreator,
-} from "../../redux/store";
+import {DialogsPageType} from "../../redux/store";
 
 type DialogsType = {
-    state: DialogsPageType
-    dispatch:(action:ActionTypes) => void
-
+    onMessageChange: (newText: string) => void
+    onSendMessageClick: () => void
+    dialogsPage: DialogsPageType
 }
 const Dialogs: React.FC<DialogsType> = (props) => {
-    let dialogsElements = props.state.dialogs.map(d => < DialogItem id={d.id} name={d.name}/>)
-    let messagesElements = props.state.messages.map(m => <Message id={m.id} message={m.message}/>)
+    let dialogsPage = props.dialogsPage
+    //отрисовка диалогов (пользователей)
+    let dialogsElements = dialogsPage.dialogs.map(d => < DialogItem id={d.id} name={d.name}/>)
+    // отрисовка сообщений
+    let messagesElements = dialogsPage.messages.map(m => <Message id={m.id} message={m.message}/>)
 
-
-    const onSendMessageClick=()=> {
-        if (props.state.newMessageText!=="") {
-            props.dispatch(SendMessageActionCreator(props.state.newMessageText))
-        }
+    const onSendMessageClick = () => {
+        props.onSendMessageClick()
     }
 
-    function onMessageChange (e:  React.ChangeEvent<HTMLTextAreaElement>) {
-        let newText:string=  e.currentTarget.value
-        props.dispatch(UpdateNewMessageBodyActionCreator(newText))
+    function onMessageChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+        props.onMessageChange(e.currentTarget.value)
     }
+
     return (
         <BrowserRouter>
             <div className={s.dialogs}>
@@ -39,10 +35,10 @@ const Dialogs: React.FC<DialogsType> = (props) => {
                     {messagesElements}
                     <div>
                         <textarea
-                            placeholder= "Enter your message"
-                            value={props.state.newMessageText}
+                            placeholder="Enter your message"
+                            value={props.dialogsPage.newMessageText}
                             onChange={onMessageChange}
-                            /></div>
+                        /></div>
                     <div>
                         <button onClick={onSendMessageClick}>Send</button>
                     </div>
