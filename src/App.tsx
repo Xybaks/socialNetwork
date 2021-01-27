@@ -20,23 +20,20 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 // News - "Новости"
 // Music - "Музыка"
 // Settings - "Настройки"
-type PropsType = {
-    store: StoreType
-}
 
-const App: React.FC<PropsType>=(props) =>{
+const App=() =>{
 // можно теперь из пропсов вытягивать state  через getState()
-// const state = props.store.getState()
+
 debugger
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar friends={props.store.getState().sidebar.friends}
+                <Navbar
                 />
                 <div className='app-wrapper-content'>
-                    <Route path='/profile' render={() => <Profile store={props.store}/>}/>
-                    <Route path='/messages' render={() => <DialogsContainer store={props.store}/>}/>
+                    <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path='/messages' render={() => <DialogsContainer/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>

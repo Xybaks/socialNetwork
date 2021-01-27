@@ -8,7 +8,7 @@ export type StoreType=typeof store
 let reducers= combineReducers({
          profile: profileReducer, // добавление поста в компонент Profile
          dialogs: dialogsReducer,// добавление сообщения в компонент Dialogs
-        sidebar:sidebarReducer//   перерисовка друзей в Navbar
+        // sidebar:sidebarReducer//   перерисовка друзей в Navbar
 })
 let store = createStore(reducers)
 export default store

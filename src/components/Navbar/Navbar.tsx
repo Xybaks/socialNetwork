@@ -21,9 +21,13 @@ const Navbar: React.FC<SidebarType>=(props) =>{
         <div className={s.item}>
             <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
         </div>
-        <div className={s.friends}>
-            <NavLink to="/friends" activeClassName={s.activeLink}><Friends friends = {props.friends}/></NavLink>
-        </div>
+        {/*<div className={s.friends}>*/}
+        {/*    <NavLink to="/friends"*/}
+        {/*             activeClassName={s.activeLink}>*/}
+        {/*        <Friends*/}
+        {/*            // friends = {props.friends}*/}
+        {/*        /></NavLink>*/}
+        {/*</div>*/}
     </nav>)
 }
 

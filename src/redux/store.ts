@@ -30,7 +30,7 @@ export type FriendType = {
     avatarWay: string
 }
 export type SidebarType = {
-    friends: Array<FriendType>
+    // friends: Array<FriendType>
 }
 export type RootStateType = {
     profilePage: ProfilePageType
