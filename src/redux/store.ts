@@ -62,21 +62,13 @@ export type AddMessageActionType = {
 }
 export type SendMessageActionType = {
     type: "SEND-MESSAGE"
-    sendMessageText: string
-}
 
-export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
-    AddMessageActionType | SendMessageActionType|UpdateSidebarActionType
-export const addPostActionCreator = (postText: string): AddPostActionType =>
-    ({type: "ADD-POST", newPostText: postText}) as const
+}
 export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
-export const UpdateNewPostActionCreator = (newText: string): UpdateNewPostTextType =>
-    ({type: "UPDATE-NEW-POST-TEXT", newText: newText}) as const
-export const UpdateNewMessageBodyActionCreator = (newMessageText: string): AddMessageActionType =>
-    ({type: "ADD-MESSAGE", newMessageText: newMessageText}) as const
-export const SendMessageActionCreator = (sendMessageText: string): SendMessageActionType =>
-    ({type: "SEND-MESSAGE", sendMessageText: sendMessageText}) as const
+export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
+    AddMessageActionType | SendMessageActionType
+
 
 let store: StoreType = {
     _state: {

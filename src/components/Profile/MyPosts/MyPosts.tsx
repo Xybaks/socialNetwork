@@ -6,14 +6,14 @@ import {PostsType} from "../../../redux/store";
 type MyPostsType = {
     posts: Array<PostsType>
     newPostText: string
-    UpdateNewPostText: (newText: string) => void
+    updateNewPostText: (newText: string) => void
     addPost:(newPostText: string) => void
 
 }
 
 
 const MyPosts: React.FC<MyPostsType> = (props) => {
-
+debugger
     let postsElement = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 //добавление поста
@@ -24,7 +24,7 @@ const MyPosts: React.FC<MyPostsType> = (props) => {
 // колбэк набранного текста в новом посте
     function onPostChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         let newText: string = e.currentTarget.value
-        props.UpdateNewPostText(newText)
+        props.updateNewPostText(newText)
     }
 
 

@@ -7,7 +7,6 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {StoreType} from "./redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
@@ -24,7 +23,6 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 const App=() =>{
 // можно теперь из пропсов вытягивать state  через getState()
 
-debugger
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

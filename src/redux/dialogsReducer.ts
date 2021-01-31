@@ -1,4 +1,4 @@
-import {ActionTypes, DialogsPageType} from "./store";
+import {ActionTypes, AddMessageActionType, DialogsPageType, SendMessageActionType} from "./store";
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
 let initialState={
@@ -26,8 +26,8 @@ export const dialogsReducer = (state: DialogsPageType =initialState, action: Act
             }
             return state;
         case "SEND-MESSAGE": // добавление сообщения в компоненте  Dialogs
-            if (action.sendMessageText !== "") {
-                state.messages.push({id: 6, message: action.sendMessageText})
+            if (state.newMessageText !== "") {
+                state.messages.push({id: 6, message: state.newMessageText})
                 state.newMessageText = ""
             }
             return state;
@@ -36,3 +36,7 @@ export const dialogsReducer = (state: DialogsPageType =initialState, action: Act
             return state
     }
 }
+export const UpdateNewMessageBodyActionCreator = (newMessageText: string): AddMessageActionType =>
+    ({type: "ADD-MESSAGE", newMessageText: newMessageText}) as const
+export const SendMessageActionCreator = (): SendMessageActionType =>
+    ({type: "SEND-MESSAGE"}) as const
