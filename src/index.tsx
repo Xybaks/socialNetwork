@@ -8,7 +8,6 @@ import store from './redux/redux-store'
 import {Provider} from "react-redux";
 
 
-export const renderTree =(state:object)=>{
     ReactDOM.render(
         <React.StrictMode>
             <Provider store={store} >
@@ -16,16 +15,8 @@ export const renderTree =(state:object)=>{
             </Provider>
         </React.StrictMode>,
         document.getElementById('root')
-    );
-}
+    )
 
-renderTree(store.getState)
-
-store.subscribe(() => {
-        let state = store.getState()
-        renderTree(store)
-    }
-)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

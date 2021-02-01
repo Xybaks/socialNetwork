@@ -13,7 +13,6 @@ type MyPostsType = {
 
 
 const MyPosts: React.FC<MyPostsType> = (props) => {
-debugger
     let postsElement = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 //добавление поста
