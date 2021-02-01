@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
-import {addPostActionCreator, UpdateNewPostActionCreator} from "../../../redux/profileReducer";
+import {addPostActionCreator, updateNewPostActionCreator} from "../../../redux/profileReducer";
 import {PostsType} from "../../../redux/store";
 import {RootReduxStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
@@ -34,7 +34,7 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         },
         //  функция обновления вводимого текста в профайле
         updateNewPostText: (newText: string) => {
-            dispatch(UpdateNewPostActionCreator(newText))
+            dispatch(updateNewPostActionCreator(newText))
         }
     }
 }

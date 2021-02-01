@@ -1,6 +1,19 @@
 import {AddPostActionType, profileReducer, UpdateNewPostTextType} from "./profileReducer";
 import {AddMessageActionType, dialogsReducer, SendMessageActionType} from "./dialogsReducer";
+import {FollowUserActionType, SetUserActionType} from "./usersReducer";
 
+
+export type UserType={
+    id:number,
+    photoUrl:string
+    followed:boolean,
+    fullName: string,
+    status:string,
+    location:{ city:string, country:string}}
+
+export type UsersPageType = {
+    users:Array<UserType>
+}
 
 export type PostsType = {
     id: number
@@ -19,6 +32,7 @@ export type MessagesType = {
     id: number
     message: string
 }
+
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
@@ -51,7 +65,7 @@ export type UpdateSidebarActionType = {
 export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
-    AddMessageActionType | SendMessageActionType
+    AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType
 
 
 let store: StoreType = {

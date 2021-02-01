@@ -44,11 +44,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 // добавление типов action для страницы profile
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextType = ReturnType<typeof UpdateNewPostActionCreator>
+export type UpdateNewPostTextType = ReturnType<typeof updateNewPostActionCreator>
 // добавление  ActionCreator-в для для страницы profile
 //добавление постов
 export const addPostActionCreator = (postText: string) =>
     ({type: ADD_POST, newPostText: postText}) as const
 //обновление текста  нового поста  newPostText в state
-export const UpdateNewPostActionCreator = (newText: string) =>
+export const updateNewPostActionCreator = (newText: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
