@@ -13,9 +13,9 @@ type DialogsType = {
 const Dialogs: React.FC<DialogsType> = (props) => {
     let dialogsPage = props.dialogsPage
     //отрисовка диалогов (пользователей)
-    let dialogsElements = dialogsPage.dialogs.map(d => < DialogItem id={d.id} name={d.name}/>)
+    let dialogsElements = dialogsPage.dialogs.map(d => < DialogItem key={d.id} id={d.id} name={d.name}/>)
     // отрисовка сообщений
-    let messagesElements = dialogsPage.messages.map(m => <Message id={m.id} message={m.message}/>)
+    let messagesElements = dialogsPage.messages.map(m => <Message key={m.id} id={m.id} message={m.message}/>)
 
     const onSendMessageClick = () => {
         props.onSendMessageClick()

@@ -1,5 +1,5 @@
-import {profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
+import {AddPostActionType, profileReducer, UpdateNewPostTextType} from "./profileReducer";
+import {AddMessageActionType, dialogsReducer, SendMessageActionType} from "./dialogsReducer";
 
 
 export type PostsType = {
@@ -44,25 +44,9 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
 }
-export type AddPostActionType = {
-    type: "ADD-POST"
-    newPostText: string
-}
-export type UpdateNewPostTextType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
 export type UpdateSidebarActionType = {
     type: "UPDATE-SIDEBAR"
     newFiendId: string
-}
-export type AddMessageActionType = {
-    type: "ADD-MESSAGE"
-    newMessageText: string
-}
-export type SendMessageActionType = {
-    type: "SEND-MESSAGE"
-
 }
 export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const

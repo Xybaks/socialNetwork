@@ -1,4 +1,7 @@
-import {ActionTypes, AddMessageActionType, DialogsPageType, SendMessageActionType} from "./store";
+import {ActionTypes, DialogsPageType} from "./store";
+
+export const ADD_MESSAGE ="ADD-MESSAGE"
+export const SEND_MESSAGE ="SEND-MESSAGE"
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
 let initialState = {
@@ -22,14 +25,14 @@ let initialState = {
 //  редюсер для redux-store для  изменения части стэйта (dialogsPage)
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case "ADD-MESSAGE": // добавление сообщения в компоненте  Dialogs  через DialogsContainer
+        case ADD_MESSAGE: // добавление сообщения в компоненте  Dialogs  через DialogsContainer
             if (action.newMessageText !== "") {
                 //возврат копии state для того, чтобы connect видел , что state менялся
                 return {...state,
                     newMessageText: action.newMessageText}
             }
             return state;
-        case "SEND-MESSAGE": // добавление сообщения в компоненте  Dialogs через DialogsContainer
+        case SEND_MESSAGE: // добавление сообщения в компоненте  Dialogs через DialogsContainer
             if (state.newMessageText !== "") {
                 //возврат копии state для того, чтобы connect видел , что state менялся
                 return {
@@ -44,7 +47,12 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
     }
 }
 
-export const UpdateNewMessageBodyActionCreator = (newMessageText: string): AddMessageActionType =>
-    ({type: "ADD-MESSAGE", newMessageText: newMessageText}) as const
-export const SendMessageActionCreator = (): SendMessageActionType =>
-    ({type: "SEND-MESSAGE"}) as const
+// добавление типов action для страницы Dialogs
+export type AddMessageActionType = ReturnType<typeof UpdateNewMessageBodyActionCreator >
+export type SendMessageActionType = ReturnType<typeof SendMessageActionCreator >
+// добавление  ActionCreator-в для для страницы Dialogs
+//добавление сообщения
+export const SendMessageActionCreator = ()=>({type: SEND_MESSAGE}) as const
+//обновление сообщения для переменной newMessageText в стэйте
+export const UpdateNewMessageBodyActionCreator = (newMessageText: string)=>
+    ({type: ADD_MESSAGE, newMessageText: newMessageText}) as const
