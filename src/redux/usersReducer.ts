@@ -5,32 +5,33 @@ export const SET_USERS = "SET-USERS"
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
 let initialState: UsersPageType = {
-    users:[]
-    //     [{
-    //         id: 1,
-    //         photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-    //         followed: false,
-    //         fullName: "Dima K",
-    //         status: "I'm the best",
-    //         location: {city: "Minsk", country: "Belarus"}
-    //     },
-    //         {
-    //             id: 2,
-    //             photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-    //             followed: true,
-    //             fullName: "Sasha G",
-    //             status: "I'm the most clever man forever",
-    //             location: {city: "Moscow", country: "Russia"}
-    //         },
-    //         {
-    //             id: 3,
-    //             photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-    //             followed: false,
-    //             fullName: "Angrey X",
-    //             status: "I'm coding...",
-    //             location: {city: "Kiev", country: "Ukraine"}
-    //         }
-    //     ]
+    users:
+        []
+        // [{
+        //     id: 1,
+        //     photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
+        //     followed: false,
+        //     name: "Dima K",
+        //     status: "I'm the best",
+        //     // location: {city: "Minsk", country: "Belarus"}
+        // },
+        //     {
+        //         id: 2,
+        //         photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
+        //         followed: true,
+        //         name: "Sasha G",
+        //         status: "I'm the most clever man forever",
+        //         // location: {city: "Moscow", country: "Russia"}
+        //     },
+        //     {
+        //         id: 3,
+        //         photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
+        //         followed: false,
+        //         name: "Angrey X",
+        //         status: "I'm coding...",
+        //         // location: {city: "Kiev", country: "Ukraine"}
+        //     }
+        // ]
 }
 //  редюсер для redux-store для  изменения части стэйта (dialogsPage)
 export const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) => {

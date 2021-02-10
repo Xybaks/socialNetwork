@@ -4,12 +4,17 @@ import {FollowUserActionType, SetUserActionType} from "./usersReducer";
 
 
 export type UserType={
+    name: string,
     id:number,
-    photoUrl:string
-    followed:boolean,
-    fullName: string,
+    uniqueUrlName:string
+    photos:{
+        small:string
+        large:string
+},
     status:string,
-    location:{ city:string, country:string}}
+    followed:boolean,
+    // location:{ city:string, country:string}
+    }
 
 export type UsersPageType = {
     users:Array<UserType>

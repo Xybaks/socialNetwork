@@ -1,6 +1,8 @@
 import React from 'react';
 import {UserType} from "../../redux/store";
-
+import axios from 'axios';
+import userIcon from "../../asseds/images/userIcon.png"
+import s from "./Users.module.css"
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -8,59 +10,83 @@ type UsersPropsType = {
     setUsers: (users: Array<UserType>) => void
 }
 
-function Users(props: UsersPropsType) {
-   if (props.users.length===0){
-    props.setUsers(
-    [{
-        id: 1,
-        photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-        followed: false,
-        fullName: "Dima K",
-        status: "I'm the best",
-        location: {city: "Minsk", country: "Belarus"}
-    },
-        {
-            id: 2,
-            photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-            followed: true,
-            fullName: "Sasha G",
-            status: "I'm the most clever man forever",
-            location: {city: "Moscow", country: "Russia"}
-        },
-        {
-            id: 3,
-            photoUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Wikipe-tan_avatar.png",
-            followed: false,
-            fullName: "Angrey X",
-            status: "I'm coding...",
-            location: {city: "Kiev", country: "Ukraine"}
+//В целях обучения работе с классовыми компонентами создам классовый компонент Users
+
+class Users extends React.Component<UsersPropsType, {}> {
+    componentDidMount(){
+        if (this.props.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>
+                this.props.setUsers(response.data.items)
+            )
         }
-    ]
-    )}
-    return <div>
-        {
-            props.users.map(user => <div key={user.id}>
+
+    }
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.users.map(user => <div key={user.id}>
                <span>
               <div>
-                <img src={user.photoUrl}/>
+                <img className={s.icon} src={user.photos.small !== null ? user.photos.small : userIcon}/>
               </div>
                    <div>
-                       <button onClick={()=>props.toggleFollow(user.id )}>{user.followed? "Unfollow":"Follow"}</button>
+                      <button
+                          onClick={() => this.props.toggleFollow(user.id)}>{user.followed ? "Unfollow" : "Follow"}</button>
                    </div>
             </span>
-                <span>
-            <span>
-           <div>{user.fullName}</div>
-            <div>{user.status}</div>
-            </span>
-            <span>
-           <div>{user.location.country}</div>
-                <div>{user.location.city}</div>
-            </span>
-                    </span>
-            </div>)
-        }
-    </div>
+                        <span>
+             <span>
+           <div>{user.name}</div><div>{user.status}</div>
+           </span>
+           <span>
+          <div>{"user.location.country"}</div>
+               <div>{"user.location.city"}</div>
+           </span>
+                   </span>
+                    </div>)
+                }
+            </div>
+        )
+    }
 }
+
+// функциональный комопнент Users
+// const Users: React.FC<UsersPropsType> = (props) => {
+//     const getUsers = () => {
+//         if (props.users.length === 0) {
+//             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>
+//                 props.setUsers(response.data.items)
+//             )
+//         }
+//     }
+//     return <div>
+//         <button onClick={getUsers}> get users</button>
+//         {
+//             props.users.map(user => <div key={user.id}>
+//                <span>
+//               <div>
+//                 <img className={s.icon} src={user.photos.small !== null ? user.photos.small : userIcon}/>
+//               </div>
+//                    <div>
+//                        <button
+//                            onClick={() => props.toggleFollow(user.id)}>{user.followed ? "Unfollow" : "Follow"}</button>
+//                    </div>
+//             </span>
+//                 <span>
+//             <span>
+//            <div>{user.name}</div>
+//             <div>{user.status}</div>
+//             </span>
+//             <span>
+//            <div>{"user.location.country"}</div>
+//                 <div>{"user.location.city"}</div>
+//             </span>
+//                     </span>
+//             </div>)
+//         }
+//     </div>
+// }
 
 export default Users
