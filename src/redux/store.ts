@@ -1,24 +1,12 @@
 import {AddPostActionType, profileReducer, UpdateNewPostTextType} from "./profileReducer";
 import {AddMessageActionType, dialogsReducer, SendMessageActionType} from "./dialogsReducer";
-import {FollowUserActionType, SetUserActionType} from "./usersReducer";
+import {
+    FollowUserActionType,
+    SetCurrentPageActionType,
+    SetTotalUsersCountActionType,
+    SetUserActionType, ToggleIsFetchingActionType
+} from "./usersReducer";
 
-
-export type UserType={
-    name: string,
-    id:number,
-    uniqueUrlName:string
-    photos:{
-        small:string
-        large:string
-},
-    status:string,
-    followed:boolean,
-    // location:{ city:string, country:string}
-    }
-
-export type UsersPageType = {
-    users:Array<UserType>
-}
 
 export type PostsType = {
     id: number
@@ -70,7 +58,8 @@ export type UpdateSidebarActionType = {
 export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
-    AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType
+    AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType|SetCurrentPageActionType |
+    SetTotalUsersCountActionType|ToggleIsFetchingActionType
 
 
 let store: StoreType = {

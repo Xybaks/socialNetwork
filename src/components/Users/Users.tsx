@@ -1,42 +1,47 @@
 import React from 'react';
-import {UserType} from "../../redux/store";
 import axios from 'axios';
 import userIcon from "../../asseds/images/userIcon.png"
 import s from "./Users.module.css"
+import {UserType} from "../../redux/usersReducer";
 
 type UsersPropsType = {
     users: Array<UserType>
+    pageSizes: number
+    currentPage: number
+    totalUsersCount: number
     toggleFollow: (usersId: number) => void
     setUsers: (users: Array<UserType>) => void
+    onPageClick: (page: number) => void
 }
 
-//В целях обучения работе с классовыми компонентами создам классовый компонент Users
-
-class Users extends React.Component<UsersPropsType, {}> {
-    componentDidMount(){
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>
-                this.props.setUsers(response.data.items)
-            )
-        }
-
+let Users: React.FC<UsersPropsType> = (props) => {
+    let PagesCount = Math.ceil(props.totalUsersCount / props.pageSizes)
+    let pages: Array<number> = []
+    for (let i = 1; i <= PagesCount; i++) {
+        pages.push(i)
     }
-
-    render() {
-        return (
+    return (
+        <div>
             <div>
-                {
-                    this.props.users.map(user => <div key={user.id}>
+                {pages.map (page => {
+                    return <span key={page}
+                                 className={page === props.currentPage ? s.active : ""}
+                                 onClick={() => props.onPageClick(page)}>{page}</span>
+                })
+                }
+            </div>
+            {
+                props.users.map(user => <div key={user.id}>
                <span>
               <div>
                 <img className={s.icon} src={user.photos.small !== null ? user.photos.small : userIcon}/>
               </div>
                    <div>
                       <button
-                          onClick={() => this.props.toggleFollow(user.id)}>{user.followed ? "Unfollow" : "Follow"}</button>
+                          onClick={() => props.toggleFollow(user.id)}>{user.followed ? "Unfollow" : "Follow"}</button>
                    </div>
             </span>
-                        <span>
+                    <span>
              <span>
            <div>{user.name}</div><div>{user.status}</div>
            </span>
@@ -45,48 +50,11 @@ class Users extends React.Component<UsersPropsType, {}> {
                <div>{"user.location.city"}</div>
            </span>
                    </span>
-                    </div>)
-                }
-            </div>
-        )
-    }
+                </div>)
+            }
+        </div>
+    )
 }
 
-// функциональный комопнент Users
-// const Users: React.FC<UsersPropsType> = (props) => {
-//     const getUsers = () => {
-//         if (props.users.length === 0) {
-//             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>
-//                 props.setUsers(response.data.items)
-//             )
-//         }
-//     }
-//     return <div>
-//         <button onClick={getUsers}> get users</button>
-//         {
-//             props.users.map(user => <div key={user.id}>
-//                <span>
-//               <div>
-//                 <img className={s.icon} src={user.photos.small !== null ? user.photos.small : userIcon}/>
-//               </div>
-//                    <div>
-//                        <button
-//                            onClick={() => props.toggleFollow(user.id)}>{user.followed ? "Unfollow" : "Follow"}</button>
-//                    </div>
-//             </span>
-//                 <span>
-//             <span>
-//            <div>{user.name}</div>
-//             <div>{user.status}</div>
-//             </span>
-//             <span>
-//            <div>{"user.location.country"}</div>
-//                 <div>{"user.location.city"}</div>
-//             </span>
-//                     </span>
-//             </div>)
-//         }
-//     </div>
-// }
 
 export default Users

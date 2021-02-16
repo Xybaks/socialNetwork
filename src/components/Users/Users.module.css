@@ -3,3 +3,11 @@
     height: 80px;
     border-radius: 20px;
 }
+.active{
+    color: white;
+    font-style: italic;
+    font-size: xx-large;
+    border-radius: 3px;
+    border: mediumorchid 1px solid;
+    margin: 3px;
+}
