@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/socialNetwork/static/css/main.a007d68e.chunk.css",
-    "main.js": "/socialNetwork/static/js/main.e676dde4.chunk.js",
-    "main.js.map": "/socialNetwork/static/js/main.e676dde4.chunk.js.map",
-    "runtime-main.js": "/socialNetwork/static/js/runtime-main.90d3c5c0.js",
-    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.90d3c5c0.js.map",
-    "static/js/2.58bc5af8.chunk.js": "/socialNetwork/static/js/2.58bc5af8.chunk.js",
-    "static/js/2.58bc5af8.chunk.js.map": "/socialNetwork/static/js/2.58bc5af8.chunk.js.map",
-    "static/js/3.3bbfa4c2.chunk.js": "/socialNetwork/static/js/3.3bbfa4c2.chunk.js",
-    "static/js/3.3bbfa4c2.chunk.js.map": "/socialNetwork/static/js/3.3bbfa4c2.chunk.js.map",
+    "main.css": "/socialNetwork/static/css/main.31d0b704.chunk.css",
+    "main.js": "/socialNetwork/static/js/main.c1b1c02a.chunk.js",
+    "main.js.map": "/socialNetwork/static/js/main.c1b1c02a.chunk.js.map",
+    "runtime-main.js": "/socialNetwork/static/js/runtime-main.18fc627a.js",
+    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.18fc627a.js.map",
+    "static/js/2.afff517b.chunk.js": "/socialNetwork/static/js/2.afff517b.chunk.js",
+    "static/js/2.afff517b.chunk.js.map": "/socialNetwork/static/js/2.afff517b.chunk.js.map",
+    "static/js/3.5d528e86.chunk.js": "/socialNetwork/static/js/3.5d528e86.chunk.js",
+    "static/js/3.5d528e86.chunk.js.map": "/socialNetwork/static/js/3.5d528e86.chunk.js.map",
     "index.html": "/socialNetwork/index.html",
-    "static/css/main.a007d68e.chunk.css.map": "/socialNetwork/static/css/main.a007d68e.chunk.css.map",
-    "static/js/2.58bc5af8.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.58bc5af8.chunk.js.LICENSE.txt",
+    "static/css/main.31d0b704.chunk.css.map": "/socialNetwork/static/css/main.31d0b704.chunk.css.map",
+    "static/js/2.afff517b.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.afff517b.chunk.js.LICENSE.txt",
     "static/media/ufo-banner2.b5dbbd6b.gif": "/socialNetwork/static/media/ufo-banner2.b5dbbd6b.gif",
     "static/media/ufoEmblem256x256.59b25e1c.png": "/socialNetwork/static/media/ufoEmblem256x256.59b25e1c.png",
     "static/media/userIcon.40a377fa.png": "/socialNetwork/static/media/userIcon.40a377fa.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.90d3c5c0.js",
-    "static/js/2.58bc5af8.chunk.js",
-    "static/css/main.a007d68e.chunk.css",
-    "static/js/main.e676dde4.chunk.js"
+    "static/js/runtime-main.18fc627a.js",
+    "static/js/2.afff517b.chunk.js",
+    "static/css/main.31d0b704.chunk.css",
+    "static/js/main.c1b1c02a.chunk.js"
   ]
 }
