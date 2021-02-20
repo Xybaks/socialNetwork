@@ -1,4 +1,10 @@
-import {AddPostActionType, profileReducer, UpdateNewPostTextType} from "./profileReducer";
+import {
+    AddPostActionType,
+    profileReducer,
+    ProfileType,
+    setUserProfileType,
+    UpdateNewPostTextType
+} from "./profileReducer";
 import {AddMessageActionType, dialogsReducer, SendMessageActionType} from "./dialogsReducer";
 import {
     FollowUserActionType,
@@ -16,6 +22,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
+    profile:ProfileType|null
 }
 export type DialogsType = {
     id: number
@@ -59,7 +66,7 @@ export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionTy
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
     AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType|SetCurrentPageActionType |
-    SetTotalUsersCountActionType|ToggleIsFetchingActionType
+    SetTotalUsersCountActionType|ToggleIsFetchingActionType|setUserProfileType
 
 
 let store: StoreType = {
@@ -72,7 +79,8 @@ let store: StoreType = {
                 {id: 4, message: "hey", likesCount: 1},
                 {id: 5, message: "YO", likesCount: 1}
             ],
-            newPostText: ""
+            newPostText: "",
+            profile:null,
         },
         dialogsPage: {
             newMessageText: "",

@@ -1,12 +1,11 @@
 import React from "react"
 import {connect} from "react-redux";
 import Users from "./Users";
-import {Dispatch} from "redux";
 import {
-    FollowUserActionCreator,
-    SetCurrentPageActionCreator,
-    SetTotalUsersCountActionCreator,
-    SetUsersActionCreator, ToggleIsFetchingActionCreator,
+    toggleFollow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
     UserType,
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
@@ -44,8 +43,7 @@ type MapDispatchPropsType = {
 }
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
-    console.log(state)
-    return {
+      return {
         users: state.usersPage.users,
         pageSizes: state.usersPage.pageSizes,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -54,25 +52,6 @@ let mapStateToProps = (state: RootReduxStateType) => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        toggleFollow: (usersId: number) => {
-            dispatch(FollowUserActionCreator(usersId))
-        },
-        setUsers: (users: Array<UserType>) => {
-            dispatch(SetUsersActionCreator(users))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(SetCurrentPageActionCreator(page))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(SetTotalUsersCountActionCreator(totalUsersCount))
-        },
-        toggleIsFetching:(isFetching: boolean)=>{
-            dispatch(ToggleIsFetchingActionCreator(isFetching))
-        }
-    }
-}
 
 // в обучающих целях сделал UsersContainer классовым компонентом
 class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
@@ -116,6 +95,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     }
 }
 
-// при экспорте идет оборачивание контейнера еще 1 контейнером
+// при экспорте идет оборачивание контейнера еще 1 контейнером,mapDispatchToProps заменен объектом, параметрами которого сделаны
+// actionCreator'ы,но т.к. они имеют то же название, что и коллбэки, то присваивание опускается
+
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
-(mapStateToProps, mapDispatchToProps)(UsersContainer)
+(mapStateToProps, {toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})
+(UsersContainer)

@@ -68,16 +68,16 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
     }
 }
 // добавление типов action для страницы users
-export type FollowUserActionType = ReturnType<typeof FollowUserActionCreator>
-export type SetUserActionType = ReturnType<typeof SetUsersActionCreator>
-export type SetCurrentPageActionType = ReturnType<typeof SetCurrentPageActionCreator>
-export type SetTotalUsersCountActionType = ReturnType<typeof SetTotalUsersCountActionCreator>
-export type ToggleIsFetchingActionType = ReturnType<typeof ToggleIsFetchingActionCreator>
+export type FollowUserActionType = ReturnType<typeof toggleFollow>
+export type SetUserActionType = ReturnType<typeof setUsers>
+export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
+export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 //следить не следить за человеком из списка users
-export const FollowUserActionCreator = (userId: number) => ({type: TOGGLE_FOLLOW, userId: userId}) as const
+export const toggleFollow = (userId: number) => ({type: TOGGLE_FOLLOW, userId: userId}) as const
 //первоначальное добавление users:
-export const SetUsersActionCreator = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
-export const SetCurrentPageActionCreator = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
-export const SetTotalUsersCountActionCreator = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}) as const
-export const ToggleIsFetchingActionCreator = (isFetching: boolean) => ({type:TOGGLE_IS_FETCHING , isFetching}) as const
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
+export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}) as const
+export const toggleIsFetching = (isFetching: boolean) => ({type:TOGGLE_IS_FETCHING , isFetching}) as const
 

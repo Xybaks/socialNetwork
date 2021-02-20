@@ -8,7 +8,7 @@ export type StoreType=typeof store
 let reducers= combineReducers({
          profilePage: profileReducer, // добавление поста в компонент Profile
          dialogsPage: dialogsReducer, // добавление сообщения в компонент Dialogs
-            usersPage:usersReducer
+            usersPage:usersReducer,
 })
 // тип для общего _state в redux-store
 export type RootReduxStateType = ReturnType<typeof reducers>
@@ -17,5 +17,6 @@ let store = createStore(reducers)
 // export type RootReduxStateType= {
 //     profilePage: ProfilePageType,
 //     dialogsPage: DialogsPageType}
-
+// @ts-ignore
+window.store = store
 export default store
