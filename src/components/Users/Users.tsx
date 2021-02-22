@@ -4,6 +4,7 @@ import s from "./Users.module.css"
 import {UserType} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -44,14 +45,9 @@ let Users: React.FC<UsersPropsType> = (props) => {
                        {user.followed ?
                            <button
                                onClick={()=>
-                                   axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,
-                                        {
-                                            withCredentials: true,
-                                        headers:{
-                                                "API-KEY": "82f4b5ca-f1e3-4d75-b4a1-7334dd345bb3"}
-                                        })
+                                   usersAPI.unfollowUser(user.id)
                                        .then(response => {
-                                               if (response.data.resultCode == 0)
+                                               if (response.resultCode == 0)
                                                    props.toggleFollow(user.id, false)
                                            }
                                        )}

@@ -9,8 +9,8 @@ import {
     UserType,
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
-import axios from "axios";
 import PreLoader from "../common/PreLoader/PreLoader";
+import {usersAPI} from "../../api/api";
 
 
 type UsersContainerPropsType = {
@@ -58,14 +58,10 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.toggleIsFetching(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${
-                    this.props.pageSizes}`, {
-                    withCredentials: true // withCredentials -свойство, определяющее , можно ли давать кросплатформеннне запросы
-                }
-            ).then(response => {
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSizes).then(data => {
                     this.props.toggleIsFetching(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUsersCount(response.data.totalCount)
+                    this.props.setUsers(data.items)
+                    this.props.setTotalUsersCount(data.totalCount)
                 }
             )
         }
@@ -75,11 +71,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     onPageClick = (page: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSizes}`, {
-            withCredentials: true
-        }).then(response => {
+        usersAPI.getUsers(page, this.props.pageSizes).then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             }
         )
     }
