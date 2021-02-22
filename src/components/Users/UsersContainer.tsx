@@ -19,11 +19,11 @@ type UsersContainerPropsType = {
     pageSizes: number
     currentPage: number
     totalUsersCount: number
-    toggleFollow: (usersId: number) => void
+    toggleFollow: (usersId: number, userFollowed: boolean) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching:(isFetching: boolean)=>void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 //типизация стэйта для отдачи в пропсы
 type MapStatePropsType = {
@@ -35,15 +35,15 @@ type MapStatePropsType = {
 }
 //типизация функций для отдачи в пропсы
 type MapDispatchPropsType = {
-    toggleFollow: (usersId: number) => void
+    toggleFollow: (usersId: number, userFollowed: boolean) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching:(isFetching: boolean)=>void
+    toggleIsFetching: (isFetching: boolean) => void
 }
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
-      return {
+    return {
         users: state.usersPage.users,
         pageSizes: state.usersPage.pageSizes,
         totalUsersCount: state.usersPage.totalUsersCount,
@@ -58,9 +58,13 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.toggleIsFetching(true)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSizes}`).then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${
+                    this.props.pageSizes}`, {
+                    withCredentials: true // withCredentials -свойство, определяющее , можно ли давать кросплатформеннне запросы
+                }
+            ).then(response => {
+                    this.props.toggleIsFetching(false)
+                    this.props.setUsers(response.data.items)
                     this.props.setTotalUsersCount(response.data.totalCount)
                 }
             )
@@ -71,10 +75,12 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     onPageClick = (page: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(page)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSizes}`).then(response =>
-        {this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSizes}`, {
+            withCredentials: true
+        }).then(response => {
+                this.props.toggleIsFetching(false)
+                this.props.setUsers(response.data.items)
+            }
         )
     }
     render = () => {

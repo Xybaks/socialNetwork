@@ -30,7 +30,7 @@ export type UsersPageType = {
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
 let initialState: UsersPageType = {
     users: [],
-    pageSizes: 100,
+    pageSizes: 5,
     totalUsersCount: 100,
     currentPage: 2,
     isFetching:false
@@ -43,7 +43,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, followed: !u.followed}
+                        return {...u, followed: action.userFollowed}
                     }
                     return u
                 })
@@ -74,7 +74,7 @@ export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 //следить не следить за человеком из списка users
-export const toggleFollow = (userId: number) => ({type: TOGGLE_FOLLOW, userId: userId}) as const
+export const toggleFollow = (userId: number,userFollowed:boolean) => ({type: TOGGLE_FOLLOW,userId,userFollowed}) as const
 //первоначальное добавление users:
 export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
