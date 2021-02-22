@@ -12,6 +12,7 @@ import {
     SetTotalUsersCountActionType,
     SetUserActionType, ToggleIsFetchingActionType
 } from "./usersReducer";
+import {setAuthUserDataActionType} from "./authReducer";
 
 
 export type PostsType = {
@@ -66,7 +67,7 @@ export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionTy
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
     AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType|SetCurrentPageActionType |
-    SetTotalUsersCountActionType|ToggleIsFetchingActionType|setUserProfileType
+    SetTotalUsersCountActionType|ToggleIsFetchingActionType|setUserProfileType|setAuthUserDataActionType
 
 
 let store: StoreType = {

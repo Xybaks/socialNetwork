@@ -7,7 +7,7 @@ import {RootReduxStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter } from 'react-router-dom';
 // короче, наворочено много. Сначала вызывается контейнернаы комопнент, в котором идет через коннект соединение со стором
 //потом идет контейнерный комопнент WithUrlDataContainerComponent, который с помощью withRouter оборачивает ProfileContainer
-// потом идет контейнерный комопнент ProfileContainer, который делает запрос на сервер  и вызывает Profile
+// потом идет контейнерный комопнент ProfileContainer, который делает запрос на сервер  и вызывает
 // типизациятия стэйта для коннекта
 type MapStatePropsType={
     profile:ProfileType|null
