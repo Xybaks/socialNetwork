@@ -5,6 +5,7 @@ export const SET_USERS = "SET-USERS"
 export const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 export const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 export const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
+export const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE-IS-FOLLOWING-PROGRESS"
 
 
 export type UserType = {
@@ -24,7 +25,8 @@ export type UsersPageType = {
     pageSizes: number
     totalUsersCount: number
     currentPage: number
-    isFetching:boolean
+    isFetching: boolean
+    followingProgress: Array<number> // массив id юзеров, по которым не завершены запросы на сервер
 }
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
@@ -33,7 +35,8 @@ let initialState: UsersPageType = {
     pageSizes: 5,
     totalUsersCount: 100,
     currentPage: 2,
-    isFetching:false
+    isFetching: false,
+    followingProgress: []
 }
 //  редюсер для redux-store для  изменения части стэйта (dialogsPage)
 export const usersReducer = (state: UsersPageType = initialState, action: ActionTypes) => {
@@ -63,6 +66,14 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
         }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                followingProgress: action.isFetching
+                    ? [...state.followingProgress, action.userId]
+                    : state.followingProgress.filter(id => id !== action.userId)
+            }
+        }
         default:
             return state
     }
@@ -73,11 +84,16 @@ export type SetUserActionType = ReturnType<typeof setUsers>
 export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
+export type FollowingInProgressActionType = ReturnType<typeof toggleFollowingInProgress>
 //следить не следить за человеком из списка users
-export const toggleFollow = (userId: number,userFollowed:boolean) => ({type: TOGGLE_FOLLOW,userId,userFollowed}) as const
-//первоначальное добавление users:
+export const toggleFollow = (userId: number, userFollowed: boolean) => ({
+    type: TOGGLE_FOLLOW,
+    userId,
+    userFollowed
+}) as const
 export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}) as const
-export const toggleIsFetching = (isFetching: boolean) => ({type:TOGGLE_IS_FETCHING , isFetching}) as const
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
+export const toggleFollowingInProgress = (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}) as const
 

@@ -6,7 +6,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers, toggleIsFetching,
-    UserType,
+    UserType, toggleFollowingInProgress,
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import PreLoader from "../common/PreLoader/PreLoader";
@@ -16,6 +16,7 @@ import {usersAPI} from "../../api/api";
 type UsersContainerPropsType = {
     isFetching: boolean
     users: Array<UserType>
+    followingProgress: Array <number>
     pageSizes: number
     currentPage: number
     totalUsersCount: number
@@ -24,6 +25,7 @@ type UsersContainerPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingInProgress:(isFetching: boolean, userId: number) =>void
 }
 //типизация стэйта для отдачи в пропсы
 type MapStatePropsType = {
@@ -32,6 +34,8 @@ type MapStatePropsType = {
     currentPage: number
     totalUsersCount: number
     isFetching: boolean
+    followingProgress:Array <number>
+
 }
 //типизация функций для отдачи в пропсы
 type MapDispatchPropsType = {
@@ -40,6 +44,7 @@ type MapDispatchPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingInProgress:(isFetching: boolean, userId: number) =>void
 }
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
@@ -48,7 +53,8 @@ let mapStateToProps = (state: RootReduxStateType) => {
         pageSizes: state.usersPage.pageSizes,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingProgress: state.usersPage.followingProgress
     }
 }
 
@@ -78,7 +84,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
         )
     }
     render = () => {
-        return (
+          return (
             <>
                 {this.props.isFetching
                     ? <PreLoader/>
@@ -90,6 +96,8 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
                         toggleFollow={this.props.toggleFollow}
                         setUsers={this.props.setUsers}
                         onPageClick={this.onPageClick}
+                        followingProgress={this.props.followingProgress}
+                        toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                     />}
             </>)
     }
@@ -99,5 +107,5 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
 // actionCreator'ы,но т.к. они имеют то же название, что и коллбэки, то присваивание опускается
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
-(mapStateToProps, {toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})
+(mapStateToProps, {toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,toggleFollowingInProgress})
 (UsersContainer)

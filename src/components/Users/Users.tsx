@@ -14,6 +14,8 @@ type UsersPropsType = {
     toggleFollow: (usersId: number, userFollowed: boolean) => void
     setUsers: (users: Array<UserType>) => void
     onPageClick: (page: number) => void
+    toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
+    followingProgress: Array<number>
 }
 
 let Users: React.FC<UsersPropsType> = (props) => {
@@ -44,36 +46,47 @@ let Users: React.FC<UsersPropsType> = (props) => {
                    <div>
                        {user.followed ?
                            <button
-                               onClick={()=>
+                               disabled={props.followingProgress.some(id => id === user.id)}
+                               onClick={() => {
+                                   props.toggleFollowingInProgress(true, user.id)
                                    usersAPI.unfollowUser(user.id)
                                        .then(response => {
-                                               if (response.resultCode == 0)
+                                               if (response.resultCode === 0)
                                                    props.toggleFollow(user.id, false)
+                                               props.toggleFollowingInProgress(false, user.id)
                                            }
-                                       )}
-                           >Unfollow </button>
-                           : <button onClick={()=>
-                               axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,
-                                   {}, {
-                                   withCredentials: true,
-                                       headers:{
-                                           "API-KEY": "82f4b5ca-f1e3-4d75-b4a1-7334dd345bb3"}})
-                                   .then(response => {
-                                           if (response.data.resultCode == 0)
-                                               props.toggleFollow(user.id, true)
-                                       }
-                                   )}>Follow</button>}
-                   </div>
-            </span>
+                                       )
+                               }}
+                           >Unfollow</button>
+                           : <button
+                               disabled={props.followingProgress.some(id => id === user.id)}
+                               onClick={() => {
+                                   props.toggleFollowingInProgress(true, user.id)
+                                   axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,
+                                       {}, {
+                                           withCredentials: true,
+                                           headers: {
+                                               "API-KEY": "82f4b5ca-f1e3-4d75-b4a1-7334dd345bb3"
+                                           }
+                                       })
+                                       .then(response => {
+                                               if (response.data.resultCode === 0)
+                                                   props.toggleFollow(user.id, true)
+                                               props.toggleFollowingInProgress(false, user.id)
+                                           }
+                                       )
+                               }}>Follow</button>}
+                               </div>
+                               </span>
                     <span>
-             <span>
-           <div>{user.name}</div><div>{user.status}</div>
-           </span>
-           <span>
-          <div>{"user.location.country"}</div>
-               <div>{"user.location.city"}</div>
-           </span>
-                   </span>
+                               <span>
+                               <div>{user.name}</div><div>{user.status}</div>
+                               </span>
+                               <span>
+                               <div>{"user.location.country"}</div>
+                               <div>{"user.location.city"}</div>
+                               </span>
+                               </span>
                 </div>)
             }
         </div>

@@ -10,7 +10,7 @@ import {
     FollowUserActionType,
     SetCurrentPageActionType,
     SetTotalUsersCountActionType,
-    SetUserActionType, ToggleIsFetchingActionType
+    SetUserActionType, ToggleIsFetchingActionType, toggleFollowingInProgress, FollowingInProgressActionType
 } from "./usersReducer";
 import {setAuthUserDataActionType} from "./authReducer";
 
@@ -67,7 +67,8 @@ export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionTy
     ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
 export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
     AddMessageActionType | SendMessageActionType|FollowUserActionType|SetUserActionType|SetCurrentPageActionType |
-    SetTotalUsersCountActionType|ToggleIsFetchingActionType|setUserProfileType|setAuthUserDataActionType
+    SetTotalUsersCountActionType|ToggleIsFetchingActionType|setUserProfileType|setAuthUserDataActionType|
+    FollowingInProgressActionType
 
 
 // let store: StoreType = {
