@@ -1,8 +1,11 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
+// импорт thunk-Middleware - промежуточная прослойка store.dispatch  и reducers
+import thunkMiddleware from "redux-thunk"
+
 // тип для общего store в redux-store
 export type StoreType = typeof store
 // создание общего reducer-а из отдельных, написанных для каждой страницы
@@ -14,8 +17,8 @@ let reducers = combineReducers({
 })
 // тип для общего _state в redux-store
 export type RootReduxStateType = ReturnType<typeof reducers>
-
-let store = createStore(reducers)
+// создаем стор , используя редьюсер общий и промежуточное звено - redux-thunk
+let store = createStore(reducers,applyMiddleware(thunkMiddleware))
 // @ts-ignore
 window.store = store
 export default store

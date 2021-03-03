@@ -24,3 +24,4 @@ export const usersAPI = {
         {}, {})
         .then(response => response.data)
 }
+

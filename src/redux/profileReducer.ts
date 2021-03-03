@@ -45,7 +45,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             if (state.newPostText.replace(/\s/g, '') !== "") {
                 return {
                     ...state,
-                    posts: [...state.posts, {id: 5, message: state.newPostText, likesCount: 0}],
+                    posts: [{id: 5, message: state.newPostText, likesCount: 0},...state.posts],
                     newPostText: ""
                 };
             }

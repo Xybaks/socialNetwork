@@ -1,4 +1,8 @@
 import {ActionTypes} from "./store";
+import {usersAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {RootReduxStateType} from "./redux-store";
+
 
 export const TOGGLE_FOLLOW = "TOGGLE-FOLLOW"
 export const SET_USERS = "SET-USERS"
@@ -34,7 +38,7 @@ let initialState: UsersPageType = {
     users: [],
     pageSizes: 5,
     totalUsersCount: 100,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: false,
     followingProgress: []
 }
@@ -85,15 +89,62 @@ export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 export type FollowingInProgressActionType = ReturnType<typeof toggleFollowingInProgress>
-//следить не следить за человеком из списка users
+//добавлены ActionCreator'ы для
+// toggleFollow - подписка/отписка от пользователя
+//setUsers- выбор списка users
+//setCurrentPage -  переключение страниц
+//setTotalUsersCount - выбор количества users на 1 странице
+//toggleIsFetching - для отображения процесса загрузки
+//toggleFollowingInProgress - для деактивации кнопки во время обрадотки сервером подписки-отписки
 export const toggleFollow = (userId: number, userFollowed: boolean) => ({
     type: TOGGLE_FOLLOW,
     userId,
     userFollowed
 }) as const
-export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users}) as const
-export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage}) as const
-export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount}) as const
-export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}) as const
-export const toggleFollowingInProgress = (isFetching: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}) as const
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+export const toggleFollowingInProgress = (isFetching: boolean, userId: number) => (
+    {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const)
 
+export type ThunkType = ThunkAction<void, RootReduxStateType, unknown, ActionTypes>
+// ThunkCreator- функция, возвращающая thunk с обращением к серверу для получени списка пользователей
+export const getUses = (currentPage: number, pageSizes: number): ThunkType => {
+    return async (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
+        usersAPI.getUsers(currentPage, pageSizes).then(data => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+            }
+        )
+    }
+}
+
+export const follow = (userId: number): ThunkType => {
+    return async (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.followUser(userId)
+            .then(response => {
+                    if (response.resultCode === 0)
+                        dispatch(toggleFollow(userId, true))
+                    dispatch(toggleFollowingInProgress(false, userId))
+                }
+            )
+    }
+}
+
+export const unFollow = (userId: number): ThunkType => {
+    return async (dispatch) => {
+        dispatch(toggleFollowingInProgress(true, userId))
+        usersAPI.unfollowUser(userId)
+            .then(response => {
+                    if (response.resultCode === 0)
+                        dispatch(toggleFollow(userId, false))
+                    dispatch(toggleFollowingInProgress(false, userId))
+                }
+            )
+    }
+}
