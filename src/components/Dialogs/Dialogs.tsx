@@ -1,6 +1,6 @@
 import React from "react"
 import s from "./Dialogs.module.css"
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Redirect} from "react-router-dom";
 import DialogItem from "./DialogItem/Dialog";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/store";
@@ -9,6 +9,7 @@ type DialogsType = {
     onMessageChange: (newText: string) => void
     onSendMessageClick: () => void
     dialogsPage: DialogsPageType
+    isAuth:boolean
 }
 const Dialogs: React.FC<DialogsType> = (props) => {
     let dialogsPage = props.dialogsPage
@@ -24,6 +25,10 @@ const Dialogs: React.FC<DialogsType> = (props) => {
     function onMessageChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         props.onMessageChange(e.currentTarget.value)
     }
+
+
+    // если не залогинен поьлзователь, то вызываем редирект и перенапрапвляем на авторизацию!
+    if (!props.isAuth) return <Redirect to='/login'/>
 
     return (
         <BrowserRouter>

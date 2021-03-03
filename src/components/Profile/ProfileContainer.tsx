@@ -1,14 +1,14 @@
 import React from 'react';
-import axios from "axios";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, ProfileType} from "../../redux/profileReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
-import {RouteComponentProps, withRouter } from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 
 // типизациятия стэйта для коннекта
 type MapStatePropsType={
     profile:ProfileType|null
+    isAuth:boolean
 
 }
 // типизация диспатча в функцию для коннекта
@@ -17,7 +17,8 @@ type MapDispatchPropsType={
 }
 //общая типизация
 let mapStateToProps = (state: RootReduxStateType):MapStatePropsType => ({
-       profile:state.profilePage.profile
+       profile:state.profilePage.profile,
+    isAuth:state.auth.isAuth
 })
 //типизация на выходе connect'a
 export type ConnectPropsType =MapStatePropsType&MapDispatchPropsType
@@ -38,6 +39,8 @@ class ProfileContainer  extends React.Component<ProfileContainerPropsType,{}>{
 this.props.getUserProfile(+userId)
     }
     render(){
+        // редирект на страница логина, если не зарегистрирован куками
+        if (!this.props.isAuth) return <Redirect to='/login'/>
         return <Profile {...this.props} profile={this.props.profile}/>
 }
 }

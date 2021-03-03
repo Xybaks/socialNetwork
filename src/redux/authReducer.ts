@@ -38,7 +38,7 @@ export type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 //
 export const setAuthUserData = (id: number, email: string, login: string) => (
     {type: SET_USER_DATA,data:{ id, email, login}}as const)
-
+// ThunkCreator  - запрашивет на сервер, залолгинены ли мы. Если да, то меняет через диспатч стэйт
 export const getAuthUserData = (): ThunkType => {
     return async (dispatch) => {
         authAPI.me()

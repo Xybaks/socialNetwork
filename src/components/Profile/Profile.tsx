@@ -3,6 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profileReducer";
 
+
 // ProfileInfo - компонент отрисовки сведений профиля
 // MyPostsContainer  - компонент-контейнер отрисовки  сообщений  на стене в профиле
 

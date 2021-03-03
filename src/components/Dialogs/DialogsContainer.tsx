@@ -1,4 +1,3 @@
-import React from "react"
 import {DialogsPageType} from "../../redux/store";
 import Dialogs from "./Dialogs";
 import {RootReduxStateType} from "../../redux/redux-store";
@@ -8,6 +7,7 @@ import {SendMessageActionCreator, UpdateNewMessageBodyActionCreator} from "../..
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
+    isAuth:boolean
 }
 
 type MapDispatchPropsType = {
@@ -17,7 +17,8 @@ type MapDispatchPropsType = {
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.auth.isAuth
     }
 }
 // получение через dispatch функций управления части стэйта redux-store
