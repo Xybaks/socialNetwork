@@ -1,4 +1,7 @@
 import {ActionTypes} from "./store";
+import {authAPI} from "../api/api";
+import {ThunkType} from "./usersReducer";
+
 
 export const SET_USER_DATA = "SET-USER-DATE"
 
@@ -32,9 +35,20 @@ export const authReducer = (state: AuthStateType = initialState, action: ActionT
 }
 // добавление типов  для action
 export type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+//
+export const setAuthUserData = (id: number, email: string, login: string) => (
+    {type: SET_USER_DATA,data:{ id, email, login}}as const)
 
-//следить не следить за человеком из списка users
-export const setAuthUserData = (id: number, email: string, login: string) => ({type: SET_USER_DATA,data:{ id, email, login}}as const)
+export const getAuthUserData = (): ThunkType => {
+    return async (dispatch) => {
+        authAPI.me()
+            .then(response => {
+            if (response.data.resultCode === 0) { // проверка на то, что ответ пришел правильно
+                let {id, email, login} = response.data.data // деструктуризация приходящих данных
+                dispatch(setAuthUserData(id, email, login))
+            }
+        })
+    }
+}
 
-// export const toggleIsFetching = (isFetching: boolean) => ({type:TOGGLE_IS_FETCHING , isFetching}) as const
 

@@ -55,7 +55,6 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                     return u
                 })
             }
-
         //добавление в state новых users
         case SET_USERS: {
             return {...state, users: [...action.users]}
@@ -67,9 +66,11 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         case SET_TOTAL_USERS_COUNT: {
             return {...state, totalUsersCount: action.totalUsersCount}
         }
+        //отображение крутилки
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
         }
+        // подписка /отписка от пользователя
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
             return {
                 ...state,
@@ -109,7 +110,10 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number) =
     {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const)
 
 export type ThunkType = ThunkAction<void, RootReduxStateType, unknown, ActionTypes>
-// ThunkCreator- функция, возвращающая thunk с обращением к серверу для получени списка пользователей
+// ThunkCreator - функция, возвращающая thunk с обращением к серверу для
+// getUses -  получения списка пользователей
+//follow - подписку на пользователя
+//unfollow - отписку на пользователя
 export const getUses = (currentPage: number, pageSizes: number): ThunkType => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
@@ -122,7 +126,6 @@ export const getUses = (currentPage: number, pageSizes: number): ThunkType => {
         )
     }
 }
-
 export const follow = (userId: number): ThunkType => {
     return async (dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
@@ -135,7 +138,6 @@ export const follow = (userId: number): ThunkType => {
             )
     }
 }
-
 export const unFollow = (userId: number): ThunkType => {
     return async (dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))

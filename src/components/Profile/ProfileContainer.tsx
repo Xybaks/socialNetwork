@@ -2,12 +2,10 @@ import React from 'react';
 import axios from "axios";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {ProfileType, setUserProfile} from "../../redux/profileReducer";
+import {getUserProfile, ProfileType} from "../../redux/profileReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter } from 'react-router-dom';
-// короче, наворочено много. Сначала вызывается контейнернаы комопнент, в котором идет через коннект соединение со стором
-//потом идет контейнерный комопнент WithUrlDataContainerComponent, который с помощью withRouter оборачивает ProfileContainer
-// потом идет контейнерный комопнент ProfileContainer, который делает запрос на сервер  и вызывает
+
 // типизациятия стэйта для коннекта
 type MapStatePropsType={
     profile:ProfileType|null
@@ -15,7 +13,7 @@ type MapStatePropsType={
 }
 // типизация диспатча в функцию для коннекта
 type MapDispatchPropsType={
-    setUserProfile:(profile:ProfileType) => void
+    getUserProfile:(userId: number) => void
 }
 //общая типизация
 let mapStateToProps = (state: RootReduxStateType):MapStatePropsType => ({
@@ -30,12 +28,14 @@ type PathParamsType = {
 
 //  снова классовый компонент для учебных целей
 class ProfileContainer  extends React.Component<ProfileContainerPropsType,{}>{
+
     componentDidMount() {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
-                    this.props.setUserProfile(response.data)
-                console.log(this.props.setUserProfile(response.data))
-                }
-            )
+// авторизирован ли пользователь
+        let userId= this.props.match.params.userId
+        if (!userId){
+            userId="14520"
+        }
+this.props.getUserProfile(+userId)
     }
     render(){
         return <Profile {...this.props} profile={this.props.profile}/>
@@ -47,4 +47,4 @@ class ProfileContainer  extends React.Component<ProfileContainerPropsType,{}>{
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>(mapStateToProps,
-     {setUserProfile})(WithUrlDataContainerComponent)
+     {getUserProfile})(WithUrlDataContainerComponent)

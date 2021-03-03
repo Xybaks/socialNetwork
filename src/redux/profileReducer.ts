@@ -1,4 +1,6 @@
 import {ActionTypes, ProfilePageType} from "./store";
+import {usersAPI} from "../api/api";
+import {ThunkType, toggleFollow, toggleFollowingInProgress} from "./usersReducer";
 
 export const ADD_POST = "ADD-POST"
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
@@ -45,7 +47,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             if (state.newPostText.replace(/\s/g, '') !== "") {
                 return {
                     ...state,
-                    posts: [{id: 5, message: state.newPostText, likesCount: 0},...state.posts],
+                    posts: [{id: 5, message: state.newPostText, likesCount: 0}, ...state.posts],
                     newPostText: ""
                 };
             }
@@ -80,6 +82,17 @@ export const addPostActionCreator = (postText: string) =>
     ({type: ADD_POST, newPostText: postText}) as const
 //обновление текста  нового поста  newPostText в state
 export const updateNewPostActionCreator = (newText: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: newText})as const
+    ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
+// выбор отображаемого профайла
 export const setUserProfile = (profile: ProfileType) =>
-    ({type: SET_USER_PROFILE, profile}as const)
+    ({type: SET_USER_PROFILE, profile} as const)
+
+// ThunkCreator - функция, возвращающая thunk с обращением к серверу для  получения информации о пользователе
+export const getUserProfile = (userId: number): ThunkType => {
+    return async (dispatch) => {
+        usersAPI.getProfile(userId).then(response => {
+                dispatch(setUserProfile(response.data))
+            }
+        )
+    }
+}
