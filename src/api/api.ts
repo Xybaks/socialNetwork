@@ -25,9 +25,24 @@ export const usersAPI = {
     followUser: (userId: number) => instance.post(`/follow/${userId}`,
         {}, {})
         .then(response => response.data),
-    getProfile: (userId: number) => instance.get(`/profile/` + userId)
 }
 
+export const profileAPI = {
+    // запрос на сервер для получения профайла пользователя
+    getProfile(userId: number) {
+        return instance.get(`/profile/` + userId)
+    },
+    // запрос на сервер для получения статуса пользователя
+    getStatus(userId: number) {
+        return instance.get(`profile/status/` + userId)
+    },
+    // put-запрос на сервер для отправки статуса пользователя
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, {status: status})
+    } // можно скоратить до {status}
+};
+
+// объект-упаковка для методов работы REST API с профайлом
 export const authAPI = {
     me: () => instance.get(`/auth/me`)
 }

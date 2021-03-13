@@ -10,11 +10,17 @@ import {ProfileType} from "../../redux/profileReducer";
 type ProfilePropsType={
     children?: ReactNode
     profile: ProfileType | null
+    updateStatus: (status: string)=>void
+    status:string
 }
 
 const Profile = (props:ProfilePropsType) => {
     return (<div>
-        <ProfileInfo  profile={props.profile}/>
+        <ProfileInfo
+            profile={props.profile}
+            updateStatus={props.updateStatus}
+            status ={props.status}
+        />
         <MyPostsContainer/>
     </div>)
 }

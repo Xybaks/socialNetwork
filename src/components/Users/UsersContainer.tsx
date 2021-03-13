@@ -6,6 +6,8 @@ import {
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import PreLoader from "../common/PreLoader/PreLoader";
+import {compose} from "redux";
+import {AuthRedirect} from "../../hoc/AuthRedirect";
 
 
 type UsersContainerPropsType = {
@@ -47,7 +49,6 @@ let mapStateToProps = (state: RootReduxStateType) => {
     }
 }
 
-
 // в обучающих целях сделал UsersContainer классовым компонентом
 class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     componentDidMount() {
@@ -75,9 +76,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
             </>)
     }
 }
-
-// при экспорте идет оборачивание контейнера еще 1 контейнером,mapDispatchToProps заменен объектом, параметрами которого сделаны
-// actionCreator'ы,но т.к. они имеют то же название, что и коллбэки, то присваивание опускается
-
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
-(mapStateToProps, {follow, unFollow, getUses})(UsersContainer)
+// экспорт по дефолту обернут
+export default compose <React.ComponentType>(
+    AuthRedirect,
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
+    (mapStateToProps, {follow, unFollow, getUses}))
+(UsersContainer)

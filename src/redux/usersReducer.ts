@@ -1,6 +1,6 @@
-import {ActionTypes} from "./store";
+import {ActionTypes, RootStateType} from "./store";
 import {usersAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
+import {ThunkAction,ThunkDispatch} from "redux-thunk";
 import {RootReduxStateType} from "./redux-store";
 
 

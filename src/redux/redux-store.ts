@@ -5,6 +5,8 @@ import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
 // импорт thunk-Middleware - промежуточная прослойка store.dispatch  и reducers
 import thunkMiddleware from "redux-thunk"
+//импорт редюсера для  redux-form
+import { reducer as reduxFormReducer } from 'redux-form';
 
 // тип для общего store в redux-store
 export type StoreType = typeof store
@@ -13,7 +15,8 @@ let reducers = combineReducers({
     profilePage: profileReducer, // добавление поста в компонент Profile
     dialogsPage: dialogsReducer, // добавление сообщения в компонент Dialogs
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form:reduxFormReducer
 })
 // тип для общего _state в redux-store
 export type RootReduxStateType = ReturnType<typeof reducers>
