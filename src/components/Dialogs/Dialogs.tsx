@@ -50,6 +50,8 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) 
         </div>
     </form>
 }
+
+// создаем обертку с reduxForm, называя  "dialogAddMessageForm"
 const AddMessageFormRedux=reduxForm<AddMessageFormType>({form:"dialogAddMessageForm"})(AddMessageForm)
 
 export default Dialogs

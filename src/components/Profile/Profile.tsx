@@ -7,22 +7,23 @@ import {ProfileType} from "../../redux/profileReducer";
 // ProfileInfo - компонент отрисовки сведений профиля
 // MyPostsContainer  - компонент-контейнер отрисовки  сообщений  на стене в профиле
 
-type ProfilePropsType={
+type ProfilePropsType = {
     children?: ReactNode
     profile: ProfileType | null
-    updateStatus: (status: string)=>void
-    status:string
+    updateStatus: (status: string) => void
+    status: string
 }
 
-const Profile = (props:ProfilePropsType) => {
+const Profile = (props: ProfilePropsType) => {
     return (<div>
         <ProfileInfo
             profile={props.profile}
             updateStatus={props.updateStatus}
-            status ={props.status}
+            status={props.status}
         />
         <MyPostsContainer/>
     </div>)
 }
+
 
 export default Profile;

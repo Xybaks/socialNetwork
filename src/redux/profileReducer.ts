@@ -4,7 +4,6 @@ import {ThunkType} from "./usersReducer";
 
 
 export const ADD_POST = "ADD-POST"
-export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 export const SET_USER_PROFILE = "SET-USER-PROFILE"
 export const SET_STATUS = "SET-STATUS"
 
@@ -38,7 +37,6 @@ let initialState = {
         {id: 4, message: "hey", likesCount: 1},
         {id: 5, message: "YO", likesCount: 1}
     ],
-    newPostText: "",
     profile: null,
     status:""
 }
@@ -47,25 +45,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case ADD_POST: //добавление функции добавления поста в компоненту Profile
         {
 
-            if (state.newPostText.replace(/\s/g, '') !== "") {
+            if (action.newPostText.replace(/\s/g, '') !== "") {
                 return {
                     ...state,
-                    posts: [{id: 5, message: state.newPostText, likesCount: 0}, ...state.posts],
-                    newPostText: ""
+                    posts: [{id: 5, message: action.newPostText, likesCount: 0}, ...state.posts],
                 };
             }
             return state
         }
-
-        case UPDATE_NEW_POST_TEXT: //   обновление текста, введенного в MyPosts
-            if (action.newText !== "") {
-                //возврат копии state для того, чтобы connect видел , что state менялся
-                return {
-                    ...state,
-                    newPostText: action.newText
-                }
-            }
-            return state;
 
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -79,18 +66,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 // добавление типов action для страницы profile
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostActionCreator>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusType = ReturnType<typeof setStatus>
 
 // добавление  ActionCreator-в для для страницы profile
 //добавление постов
-export const addPostActionCreator = (postText: string) =>
-    ({type: ADD_POST, newPostText: postText}) as const
-//обновление текста  нового поста  newPostText в state
-export const updateNewPostActionCreator = (newText: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: newText}) as const
-// выбор отображаемого профайла
+export const addPostActionCreator = (newPostText: string) =>
+    ({type: ADD_POST, newPostText}) as const
 export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 // задание статуса в профайле

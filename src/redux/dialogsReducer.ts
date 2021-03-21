@@ -1,6 +1,5 @@
 import {ActionTypes, DialogsPageType} from "./store";
 
-export const ADD_MESSAGE ="ADD-MESSAGE"
 export const SEND_MESSAGE ="SEND-MESSAGE"
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
@@ -25,13 +24,7 @@ let initialState = {
 //  редюсер для redux-store для  изменения части стэйта (dialogsPage)
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case ADD_MESSAGE: // добавление сообщения в компоненте  Dialogs  через DialogsContainer
-            if (action.newMessageText !== "") {
-                //возврат копии state для того, чтобы connect видел , что state менялся
-                return {...state,
-                    newMessageText: action.newMessageText}
-            }
-            return state;
+
         case SEND_MESSAGE: // добавление сообщения в компоненте  Dialogs через DialogsContainer
             if (action.newMessageBody !== "") {
                 //возврат копии state для того, чтобы connect видел , что state менялся
@@ -47,11 +40,9 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
 }
 
 // добавление типов action для страницы Dialogs
-export type AddMessageActionType = ReturnType<typeof UpdateNewMessageBodyActionCreator >
 export type SendMessageActionType = ReturnType<typeof sendMessage >
 // добавление  ActionCreator-в для для страницы Dialogs
 //добавление сообщения
 export const sendMessage = (newMessageBody:string)=>({type: SEND_MESSAGE,newMessageBody}) as const
 //обновление сообщения для переменной newMessageText в стэйте
-export const UpdateNewMessageBodyActionCreator = (newMessageText: string)=>
-    ({type: ADD_MESSAGE, newMessageText: newMessageText}) as const
+

@@ -1,16 +1,14 @@
 import {
     AddPostActionType,
-    profileReducer,
     ProfileType, SetStatusType,
     SetUserProfileType,
-    UpdateNewPostTextType
 } from "./profileReducer";
-import {AddMessageActionType, dialogsReducer, SendMessageActionType} from "./dialogsReducer";
+import {SendMessageActionType} from "./dialogsReducer";
 import {
     FollowUserActionType,
     SetCurrentPageActionType,
     SetTotalUsersCountActionType,
-    SetUserActionType, ToggleIsFetchingActionType, toggleFollowingInProgress, FollowingInProgressActionType
+    SetUserActionType, ToggleIsFetchingActionType, FollowingInProgressActionType
 } from "./usersReducer";
 import {setAuthUserDataActionType} from "./authReducer";
 
@@ -22,7 +20,6 @@ export type PostsType = {
 }
 export type ProfilePageType = {
     posts: Array<PostsType>
-    newPostText: string
     profile:ProfileType|null
     status:string
 }
@@ -60,14 +57,8 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
 }
-export type UpdateSidebarActionType = {
-    type: "UPDATE-SIDEBAR"
-    newFiendId: string
-}
-export const UpdateSidebarActionType = (FriendId: string): UpdateSidebarActionType =>
-    ({type: "UPDATE-SIDEBAR", newFiendId: FriendId}) as const
-export type ActionTypes = AddPostActionType | UpdateNewPostTextType |
-    AddMessageActionType | SendMessageActionType|FollowUserActionType| SetUserActionType|
+export type ActionTypes = AddPostActionType | SendMessageActionType|FollowUserActionType|
+    SetUserActionType|
     SetCurrentPageActionType | SetTotalUsersCountActionType|ToggleIsFetchingActionType|
     SetUserProfileType|setAuthUserDataActionType| FollowingInProgressActionType|SetStatusType
 
