@@ -33,12 +33,11 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             }
             return state;
         case SEND_MESSAGE: // добавление сообщения в компоненте  Dialogs через DialogsContainer
-            if (state.newMessageText !== "") {
+            if (action.newMessageBody !== "") {
                 //возврат копии state для того, чтобы connect видел , что state менялся
                 return {
                     ...state,
-                    messages: [...state.messages, {id: 6, message: state.newMessageText}],
-                    newMessageText: ""
+                    messages: [...state.messages, {id: 8, message: action.newMessageBody}],
                 }
             }
             return state;
@@ -49,10 +48,10 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
 
 // добавление типов action для страницы Dialogs
 export type AddMessageActionType = ReturnType<typeof UpdateNewMessageBodyActionCreator >
-export type SendMessageActionType = ReturnType<typeof SendMessageActionCreator >
+export type SendMessageActionType = ReturnType<typeof sendMessage >
 // добавление  ActionCreator-в для для страницы Dialogs
 //добавление сообщения
-export const SendMessageActionCreator = ()=>({type: SEND_MESSAGE}) as const
+export const sendMessage = (newMessageBody:string)=>({type: SEND_MESSAGE,newMessageBody}) as const
 //обновление сообщения для переменной newMessageText в стэйте
 export const UpdateNewMessageBodyActionCreator = (newMessageText: string)=>
     ({type: ADD_MESSAGE, newMessageText: newMessageText}) as const

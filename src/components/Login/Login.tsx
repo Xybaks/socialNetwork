@@ -23,7 +23,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     </form>
 }
 
-
+//оборачивание нашей формы с помощью reduxForm
 const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
 const Login = () => {
