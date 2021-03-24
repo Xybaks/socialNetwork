@@ -2,6 +2,12 @@ import axios from "axios";
 // DAL -data access level
 // Promises
 
+
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
+}
+
 // экземпляр axios , в котором указываются общие свойства
 const instance = axios.create({
     withCredentials: true, // разрешить запрос на другие серверы
@@ -44,5 +50,42 @@ export const profileAPI = {
 
 // объект-упаковка для методов работы REST API с профайлом
 export const authAPI = {
-    me: () => instance.get(`/auth/me`)
+    me() {
+        return instance.get<MeResponseType>(`/auth/me`)
+    },
+    login(email: string, password: string, rememberme: boolean = false) {
+        return instance.post<LoginResponseType>(`/auth/login`, {email, password, rememberme}).then(res => res.data)
+
+    },
+    logout() {
+        return instance.delete<LogoutResponseType>(`/auth/login`);
+    }
+}
+
+export enum ResultCodeForCaptcha {
+    CaptchaIsRequired = 10
+}
+
+export type MeResponseType = {
+    data: {
+        id: number
+        email: string
+        login: string
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: ResultCodesEnum | ResultCodeForCaptcha
+    messages: Array<string>
+}
+
+type LogoutResponseType = {
+    data: {}
+    resultCode: ResultCodesEnum
+    messages: Array<string>
 }

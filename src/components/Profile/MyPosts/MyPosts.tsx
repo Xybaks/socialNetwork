@@ -4,6 +4,7 @@ import Post from "./Post/Post";
 import {PostsType} from "../../../redux/store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators";
+import {TextArea} from "../../common/FormsControls/FormsControls";
 
 type MyPostsType = {
     posts: Array<PostsType>
@@ -44,7 +45,7 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
         <Field
             placeholder="Enter your post"
             name={"newPostText"}
-            component={"textarea"}
+            component={TextArea}
             validate={[required,maxLengthNumber]}
         />
         <div>

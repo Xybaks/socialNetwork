@@ -10,7 +10,7 @@ import {
     SetTotalUsersCountActionType,
     SetUserActionType, ToggleIsFetchingActionType, FollowingInProgressActionType
 } from "./usersReducer";
-import {setAuthUserDataActionType} from "./authReducer";
+import {SetAuthUserDataActionType} from "./authReducer";
 
 
 export type PostsType = {
@@ -57,10 +57,18 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionTypes) => void
 }
-export type ActionTypes = AddPostActionType | SendMessageActionType|FollowUserActionType|
-    SetUserActionType|
-    SetCurrentPageActionType | SetTotalUsersCountActionType|ToggleIsFetchingActionType|
-    SetUserProfileType|setAuthUserDataActionType| FollowingInProgressActionType|SetStatusType
+export type ActionTypes =
+    AddPostActionType
+    | SendMessageActionType|FollowUserActionType
+    | SetUserActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
+    | ToggleIsFetchingActionType
+    | SetUserProfileType
+    | SetAuthUserDataActionType
+    | FollowingInProgressActionType
+    |SetStatusType
+
 
 
 // let store: StoreType = {

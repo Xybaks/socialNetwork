@@ -11,6 +11,8 @@ import {compose} from "redux";
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
+    // authorizedUserId:number | null,
+    // isAuth: boolean
 }
 // типизация диспатча в функцию для коннекта
 type MapDispatchPropsType = {
@@ -22,7 +24,9 @@ type MapDispatchPropsType = {
 //общая типизация
 let mapStateToProps = (state: RootReduxStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    // authorizedUserId:state.auth.id,
+    // isAuth: state.auth.isAuth
 })
 //типизация на выходе connect'a
 export type ConnectPropsType = MapStatePropsType & MapDispatchPropsType

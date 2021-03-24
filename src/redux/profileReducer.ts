@@ -100,7 +100,7 @@ export const getStatus = (userId: number): ThunkType => {
             })
     }
 };
-
+// ThunkCreator - функция, возвращающая thunk с обращением к серверу для  изменения статуса пользователя на его странице
 export const updateStatus = (status: string): ThunkType => {
     return (dispatch) => {
         profileAPI.updateStatus(status)
