@@ -2,12 +2,11 @@ import React from "react"
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
-    UserType, toggleFollowingInProgress, getUses, follow, unFollow,
+    UserType, getUses, follow, unFollow,
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import PreLoader from "../common/PreLoader/PreLoader";
 import {compose} from "redux";
-import {AuthRedirect} from "../../hoc/AuthRedirect";
 
 
 type UsersContainerPropsType = {
@@ -76,9 +75,9 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
             </>)
     }
 }
+
 // экспорт по дефолту обернут
-export default compose <React.ComponentType>(
-    AuthRedirect,
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
     (mapStateToProps, {follow, unFollow, getUses}))
 (UsersContainer)

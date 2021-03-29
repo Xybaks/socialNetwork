@@ -11,6 +11,7 @@ import {
     SetUserActionType, ToggleIsFetchingActionType, FollowingInProgressActionType
 } from "./usersReducer";
 import {SetAuthUserDataActionType} from "./authReducer";
+import {SetInitializedActionType} from "./appReducer";
 
 
 export type PostsType = {
@@ -68,6 +69,7 @@ export type ActionTypes =
     | SetAuthUserDataActionType
     | FollowingInProgressActionType
     |SetStatusType
+    |SetInitializedActionType
 
 
 

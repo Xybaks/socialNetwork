@@ -49,7 +49,7 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 //!! FormAction - типизация для диспатча ошибки редакс-форм, в ActionTypes ее НЕ СУЕМ!!!
 export const getAuthUserData = (): ThunkType => {
     return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes >) => {
-        authAPI.me()
+       return authAPI.me()
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
                     let {id, email, login} = response.data.data // деструктуризация приходящих данных

@@ -10,6 +10,10 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/Login";
+import {RootReduxStateType} from "./redux/redux-store";
+import {connect} from "react-redux";
+import PreLoader from "./components/common/PreLoader/PreLoader";
+import {initializeApp} from "./redux/appReducer";
 
 
 // точка входа - index.tsx - куда передан  самописный компонент App с данными ot store.ts
@@ -21,26 +25,47 @@ import LoginPage from "./components/Login/Login";
 // Music - "Музыка"
 // Settings - "Настройки"
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <div className='app-wrapper'>
-                <HeaderContainer/>
-                <Navbar
-                />
-                <div className='app-wrapper-content'>
-                    <Route   path='/profile/:userId?'  render={() => <ProfileContainer/>}/>
-                    <Route  path='/messages' render={() => <DialogsContainer/>}/>
-                    <Route  path='/users' render={() => <UsersContainer/>}/>
-                    <Route  path='/news' render={() => <News/>}/>
-                    <Route  path='/music' render={() => <Music/>}/>
-                    <Route  path='/settings' render={() => <Settings/>}/>
-                    <Route  path='/login' render={() => <LoginPage/>}/>
-                </div>
-            </div>
-        </BrowserRouter>
+class App extends React.Component<AppPropsType, {}> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
 
-    );
+    render() {
+        if (!this.props.initialized) return <PreLoader/>
+        else return (
+            <BrowserRouter>
+                <div className='app-wrapper'>
+                    <HeaderContainer/>
+                    <Navbar
+                    />
+                    <div className='app-wrapper-content'>
+                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route path='/messages' render={() => <DialogsContainer/>}/>
+                        <Route path='/users' render={() => <UsersContainer/>}/>
+                        <Route path='/news' render={() => <News/>}/>
+                        <Route path='/music' render={() => <Music/>}/>
+                        <Route path='/settings' render={() => <Settings/>}/>
+                        <Route path='/login' render={() => <LoginPage/>}/>
+                    </div>
+                </div>
+            </BrowserRouter>
+
+        );
+    }
+
 }
 
-export default App;
+type AppPropsType = MapStatePropsType & MapDispatchPropsType
+
+const mapStateToProps = (state: RootReduxStateType): MapStatePropsType => ({
+    initialized: state.app.initialized
+})
+type MapStatePropsType = {
+    initialized: boolean
+}
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
+
+
+export default connect(mapStateToProps, {initializeApp})(App);
