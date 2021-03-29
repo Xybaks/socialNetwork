@@ -52,6 +52,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, {}> {
             userId = this.props.authorizedUserId;
             if (!userId) {
                 this.props.history.push("/login") // перенаправление на станицу логина, если не зарегистрирован
+                // лучше  делать редирект с помощью комопнента реакте  Redirect
             }
         }
         this.props.getUserProfile(userId);

@@ -7,6 +7,14 @@ import {
 import {RootReduxStateType} from "../../redux/redux-store";
 import PreLoader from "../common/PreLoader/PreLoader";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching,
+    getPageSizes,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/usersSelectors";
 
 
 type UsersContainerPropsType = {
@@ -39,12 +47,12 @@ type MapDispatchPropsType = {
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSizes: state.usersPage.pageSizes,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress
+        users: getUsers(state),
+        pageSizes: getPageSizes(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state)
     }
 }
 
