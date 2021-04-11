@@ -1,5 +1,5 @@
 import {
-    AddPostActionType,
+    AddPostActionType, DeletePostType,
     ProfileType, SetStatusType,
     SetUserProfileType,
 } from "./profileReducer";
@@ -61,8 +61,7 @@ export type StoreType = {
 export type ActionTypes =
     AddPostActionType
     | SendMessageActionType|FollowUserActionType
-    | SetUserActionType
-    | SetCurrentPageActionType
+    | SetUserActionType | SetCurrentPageActionType
     | SetTotalUsersCountActionType
     | ToggleIsFetchingActionType
     | SetUserProfileType
@@ -70,7 +69,7 @@ export type ActionTypes =
     | FollowingInProgressActionType
     |SetStatusType
     |SetInitializedActionType
-
+|DeletePostType
 
 
 // let store: StoreType = {

@@ -1,5 +1,12 @@
 import {ActionTypes, PostsType, ProfilePageType} from "./store";
-import {addPostActionCreator, profileReducer, ProfileType} from "./profileReducer";
+import {
+    addPostActionCreator,
+    deletePost,
+    profileReducer,
+    ProfileType,
+    SET_USER_PROFILE,
+    setStatus
+} from "./profileReducer";
 
 
 let state:ProfilePageType={
@@ -22,7 +29,7 @@ beforeEach(() => {
 
 
 //ADD_POST tests
-test('correct post should be added=> length +1', () => {
+test('correct post should be added=> posts.length +1', () => {
     const action: ActionTypes = addPostActionCreator("new POST")
    const newState = profileReducer(state, action)
     expect(newState.posts.length).toBe(6);
@@ -34,4 +41,34 @@ test('correct post should be added => test text of post', () => {
     expect(newState.posts[0].message).toBe("new POST");
 });
 
-//
+//DELETE_POST tests
+test('correct post should be deleted => posts.id', () => {
+    const action: ActionTypes = deletePost(3)
+    const newState = profileReducer(state, action)
+    expect(newState.posts[2].id).toBe(4);
+
+});
+
+test('correct post should be deleted => posts.length -1', () => {
+    const action: ActionTypes = deletePost(1)
+    const newState = profileReducer(state, action)
+    expect(newState.posts.length).toBe(4);
+
+});
+
+test('Incorrect post will not  be deleted => posts.length doesn\'t change value ', () => {
+    const action: ActionTypes = deletePost(11111)
+    const newState = profileReducer(state, action)
+    expect(newState.posts.length).toBe(5);
+
+});
+
+// SET_STATUS tests
+test('correct status should be added', () => {
+    const action: ActionTypes = setStatus("my cool status")
+    const newState = profileReducer(state, action)
+    expect(newState.status).toBe(4);
+
+});
+
+//SET_USER_PROFILE:

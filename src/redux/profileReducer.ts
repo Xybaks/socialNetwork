@@ -45,7 +45,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     switch (action.type) {
         case ADD_POST: //добавление функции добавления поста в компоненту Profile
         {
-
             if (action.newPostText.replace(/\s/g, '') !== "") {
                 return {
                     ...state,
@@ -61,25 +60,36 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case SET_STATUS:{
             return {...state, status:action.status}
         }
+        case DELETE_POST:{
+            return {...state,posts: state.posts.filter((post)=>post.id!==action.postId)}
+        }
         default: // возврат по дефолту (по идее никогда не пригодится)
             return state
     }
 }
+
 // добавление типов action для страницы profile
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type DeletePostType = ReturnType<typeof deletePost>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusType = ReturnType<typeof setStatus>
+
 
 // добавление  ActionCreator-в для для страницы profile
 //добавление постов
 export const addPostActionCreator = (newPostText: string) =>
     ({type: ADD_POST, newPostText}) as const
+//установка профайла пользователя
 export const setUserProfile = (profile: ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 // задание статуса в профайле
 export const setStatus = (status: string) =>
     ({type: SET_STATUS, status} as const)
-//
+//удаление конкретного поста
+export const deletePost = (postId: number) =>
+    ({type: DELETE_POST, postId} as const)
+
+
 // type ThunkType = ThunkAction<void, RootReduxStateType, unknown, ActionTypes>;
 
 // ThunkCreator - функция, возвращающая thunk с обращением к серверу для  получения информации о пользователе
