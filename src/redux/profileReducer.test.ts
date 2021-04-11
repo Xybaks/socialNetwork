@@ -67,7 +67,7 @@ test('Incorrect post will not  be deleted => posts.length doesn\'t change value 
 test('correct status should be added', () => {
     const action: ActionTypes = setStatus("my cool status")
     const newState = profileReducer(state, action)
-    expect(newState.status).toBe(4);
+    expect(newState.status).toBe("my cool status");
 
 });
 
