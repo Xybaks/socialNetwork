@@ -1,6 +1,6 @@
 import {ActionTypes, DialogsPageType} from "./store";
 
-export const SEND_MESSAGE ="SEND-MESSAGE"
+export const SEND_MESSAGE ="SOCIAL-NETWORK/DIALOGS-REDUCER/SEND-MESSAGE"
 
 // начальные значения. нужны, чтобы передавать состояния части  state для его инициализации
 let initialState = {

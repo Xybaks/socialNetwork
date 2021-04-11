@@ -11,7 +11,7 @@ export const getUsers = ((state:RootReduxStateType) => state.usersPage.users)
 export const getUserSuperSelector=createSelector(getUsers,(users:Array<UserType>)=>users.filter(u=>true))
 // размера страниц
 export const getPageSizes = (state:RootReduxStateType) => state.usersPage.pageSizes
-// общего колисества пользователей
+// общего количества пользователей
 export const getTotalUsersCount = (state:RootReduxStateType) => state.usersPage.totalUsersCount
 // текущей страницы
 export const getCurrentPage= (state:RootReduxStateType) => state.usersPage.currentPage

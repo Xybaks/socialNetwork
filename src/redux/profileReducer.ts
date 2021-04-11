@@ -3,10 +3,10 @@ import {profileAPI,} from "../api/api";
 import {ThunkType} from "./usersReducer";
 
 
-export const ADD_POST = "ADD-POST"
-export const DELETE_POST = "DELETE-POST"
-export const SET_USER_PROFILE = "SET-USER-PROFILE"
-export const SET_STATUS = "SET-STATUS"
+export const ADD_POST = "SOCIAL-NETWORK/PROFILE-REDUCER/ADD-POST"
+export const DELETE_POST = "SOCIAL-NETWORK/PROFILE-REDUCER/DELETE-POST"
+export const SET_USER_PROFILE = "SOCIAL-NETWORK/PROFILE-REDUCER/SET-USER-PROFILE"
+export const SET_STATUS = "SOCIAL-NETWORK/PROFILE-REDUCER/SET-STATUS"
 
 export type ProfileType = {
     aboutMe: string

@@ -1,10 +1,8 @@
-import {ActionTypes, PostsType, ProfilePageType} from "./store";
+import {ActionTypes, ProfilePageType} from "./store";
 import {
     addPostActionCreator,
     deletePost,
     profileReducer,
-    ProfileType,
-    SET_USER_PROFILE,
     setStatus
 } from "./profileReducer";
 

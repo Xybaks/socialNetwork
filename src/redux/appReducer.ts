@@ -5,7 +5,8 @@ import {RootReduxStateType} from "./redux-store";
 import {getAuthUserData} from "./authReducer";
 
 
-export const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS"
+
+export const INITIALIZED_SUCCESS = "SOCIAL-NETWORK/APP-REDUCER/INITIALIZED-SUCCESS"
 
 
 export type AuthStateType = {
@@ -45,30 +46,3 @@ export const initializeApp = (): ThunkType => {
     }
 }
 
-// ThunkCreator  - отправляет  на сервер логин
-// export const login = (email: string, password: string, rememberme: boolean): ThunkType => {
-//     return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes | FormAction>) => {
-//         authAPI.login(email, password, rememberme)
-//             .then(response => {
-//                 debugger
-//                 if (response.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
-//                     dispatch(getAuthUserData())
-//                 } else {
-//                     let ErrorMessageFromServer = response.messages.length > 0 ? response.messages[0] : "some error"
-//                     dispatch(stopSubmit("login", {_error: ErrorMessageFromServer}));
-//                 }
-//             })
-//     }
-// }
-//
-// // ThunkCreator  - отправляет  на сервер запрос на удаление  логина
-// export const logout = (): ThunkType => {
-//     return (dispatch) => {
-//         authAPI.logout()
-//             .then(response => {
-//                 if (response.data.resultCode === ResultCodesEnum.Success) {
-//                     dispatch(setAuthUserData(null, null, null, false));
-//                 }
-//             })
-//     }
-// }

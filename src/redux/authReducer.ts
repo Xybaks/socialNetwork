@@ -6,7 +6,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootReduxStateType} from "./redux-store";
 
 
-export const SET_USER_DATA = "SET-USER-DATA"
+export const SET_USER_DATA = "SOCIAL-NETWORK/AUTH-REDUCER/SET-USER-DATA"
 
 
 export type AuthStateType = {

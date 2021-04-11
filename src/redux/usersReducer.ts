@@ -1,15 +1,15 @@
-import {ActionTypes, RootStateType} from "./store";
+import {ActionTypes} from "./store";
 import {usersAPI} from "../api/api";
-import {ThunkAction,ThunkDispatch} from "redux-thunk";
+import {ThunkAction} from "redux-thunk";
 import {RootReduxStateType} from "./redux-store";
 
 
-export const TOGGLE_FOLLOW = "TOGGLE-FOLLOW"
-export const SET_USERS = "SET-USERS"
-export const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
-export const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
-export const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
-export const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE-IS-FOLLOWING-PROGRESS"
+export const TOGGLE_FOLLOW = "SOCIAL-NETWORK/USERS-REDUCER/TOGGLE-FOLLOW"
+export const SET_USERS = "SOCIAL-NETWORK/USERS-REDUCER/SET-USERS"
+export const SET_CURRENT_PAGE = "SOCIAL-NETWORK/USERS-REDUCER/SET-CURRENT-PAGE"
+export const SET_TOTAL_USERS_COUNT = "SOCIAL-NETWORK/USERS-REDUCER/SET-TOTAL-USERS-COUNT"
+export const TOGGLE_IS_FETCHING = "SOCIAL-NETWORK/USERS-REDUCER/TOGGLE-IS-FETCHING"
+export const TOGGLE_IS_FOLLOWING_PROGRESS = "SOCIAL-NETWORK/USERS-REDUCER/TOGGLE-IS-FOLLOWING-PROGRESS"
 
 
 export type UserType = {
