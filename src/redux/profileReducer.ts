@@ -4,6 +4,7 @@ import {ThunkType} from "./usersReducer";
 
 
 export const ADD_POST = "ADD-POST"
+export const DELETE_POST = "DELETE-POST"
 export const SET_USER_PROFILE = "SET-USER-PROFILE"
 export const SET_STATUS = "SET-STATUS"
 

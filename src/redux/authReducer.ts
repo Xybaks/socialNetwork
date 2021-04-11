@@ -45,11 +45,13 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
     type: SET_USER_DATA,
     payload: {id, email, login, isAuth}
 } as const)
+
+
 // ThunkCreator  - запрашивет на сервер, залолгинены ли мы. Если да, то меняет через диспатч стэйт
 //!! FormAction - типизация для диспатча ошибки редакс-форм, в ActionTypes ее НЕ СУЕМ!!!
 export const getAuthUserData = (): ThunkType => {
     return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes >) => {
-       return authAPI.me()
+        authAPI.me()
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
                     let {id, email, login} = response.data.data // деструктуризация приходящих данных
@@ -63,7 +65,6 @@ export const login = (email: string, password: string, rememberme: boolean): Thu
     return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes | FormAction>) => {
         authAPI.login(email, password, rememberme)
             .then(response => {
-                debugger
                 if (response.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
                     dispatch(getAuthUserData())
                 } else {

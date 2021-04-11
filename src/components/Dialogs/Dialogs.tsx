@@ -22,7 +22,6 @@ const Dialogs: React.FC<DialogsType> = (props) => {
         props.sendMessage(values.newMessageBody);
     }
 
-    debugger
     return (
             <div className={s.dialogs}>
                 <div className={s.dialogsItems}>

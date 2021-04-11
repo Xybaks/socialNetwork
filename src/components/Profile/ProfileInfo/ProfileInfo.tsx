@@ -3,10 +3,12 @@ import skyline from "../../pictures/ufo-banner2.gif";
 import s from "./ProfileInfo.module.css";
 import {ProfileType} from "../../../redux/profileReducer";
 import PreLoader from "../../common/PreLoader/PreLoader";
-import ProfileStatus from "../../common/PreLoader/ProfileStatus";
 import avatar from "../../pictures/avatar3.png"
+import ProfileStatusFC from "./ProfileStatusFC";
 
+//ProfileStatusFC -  есть созданный аналог классовый ProfileStatus
 // skyline объект импорта  картинки профиля
+
 type ProfileInfoType = {
     profile: ProfileType | null
     updateStatus: (status: string)=>void
@@ -22,7 +24,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
         <img src={skyline}/>
 
         <div> {props.profile.fullName}</div>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatusFC status={props.status} updateStatus={props.updateStatus}/>
         <div>{props.profile.photos.large
             ? <img src={props.profile?.photos.large}/>
         :<img src={avatar}/>}

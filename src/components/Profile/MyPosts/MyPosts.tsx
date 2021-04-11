@@ -13,13 +13,13 @@ type MyPostsType = {
 }
 
 const MyPosts: React.FC<MyPostsType> = (props) => {
-    let postsElement = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
+    let postsElement = props.posts.map(p => <Post  id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 //добавление поста
-    function onAddPost(values: AddPostFormType) {
+    const onAddPost=(values: AddPostFormType) =>{
         props.addPost(values.newPostText)
     }
-
+    console.log("rerender My posts")
     return (
         <div className={s.postsBlock}>
             <h3> My posts</h3>

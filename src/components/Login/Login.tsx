@@ -35,7 +35,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             />
         </div>
         <div>
-            <Field type="checkbox" name={"rememberme"} component={"input"}/>
+            <Field type="checkbox" name={"rememberMe"} component={"input"}/>
         </div>
         {props.error &&
         <div className={style.formSummaryError}>
@@ -67,10 +67,10 @@ const Login = (props: LoginPropsType) => {
     </div>
 }
 
-
 type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void
 }
+
 type MapStatePropsType = {
     isAuth: boolean
 }

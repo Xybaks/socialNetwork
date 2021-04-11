@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux";
 import Users from "./Users";
 import {
-    UserType, getUses, follow, unFollow,
+    UserType, requestUsers, follow, unFollow,
 } from "../../redux/usersReducer";
 import {RootReduxStateType} from "../../redux/redux-store";
 import PreLoader from "../common/PreLoader/PreLoader";
@@ -13,7 +13,7 @@ import {
     getIsFetching,
     getPageSizes,
     getTotalUsersCount,
-    getUsers
+    getUserSuperSelector
 } from "../../redux/usersSelectors";
 
 
@@ -26,7 +26,7 @@ type UsersContainerPropsType = {
     totalUsersCount: number
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    getUses: (currentPage: number, pageSizes: number) => void
+    requestUsers: (currentPage: number, pageSizes: number) => void
 }
 //типизация стэйта для отдачи в пропсы
 type MapStatePropsType = {
@@ -42,12 +42,12 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    getUses: (currentPage: number, pageSizes: number) => void
+    requestUsers: (currentPage: number, pageSizes: number) => void
 }
 // функция получения из redux-store части стэйта (dialogsPage)
 let mapStateToProps = (state: RootReduxStateType) => {
     return {
-        users: getUsers(state),
+        users: getUserSuperSelector(state),
         pageSizes: getPageSizes(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -59,11 +59,11 @@ let mapStateToProps = (state: RootReduxStateType) => {
 // в обучающих целях сделал UsersContainer классовым компонентом
 class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     componentDidMount() {
-        this.props.getUses(this.props.currentPage, this.props.pageSizes)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSizes)
     }
 
     onPageClick = (page: number) => {
-        this.props.getUses(page, this.props.pageSizes)
+        this.props.requestUsers(page, this.props.pageSizes)
     }
     render = () => {
         return (
@@ -87,5 +87,5 @@ class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
 // экспорт по дефолту обернут
 export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>
-    (mapStateToProps, {follow, unFollow, getUses}))
+    (mapStateToProps, {follow, unFollow, requestUsers}))
 (UsersContainer)

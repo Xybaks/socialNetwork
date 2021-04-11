@@ -111,14 +111,14 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number) =
 
 export type ThunkType = ThunkAction<void, RootReduxStateType, unknown, ActionTypes>
 // ThunkCreator - функция, возвращающая thunk с обращением к серверу для
-// getUses -  получения списка пользователей
+// requestUsers -  получения списка пользователей
 //follow - подписку на пользователя
 //unfollow - отписку на пользователя
-export const getUses = (currentPage: number, pageSizes: number): ThunkType => {
+export const requestUsers = (page: number, pageSizes: number): ThunkType => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPage(currentPage))
-        usersAPI.getUsers(currentPage, pageSizes).then(data => {
+        dispatch(setCurrentPage(page))
+        usersAPI.getUsers(page, pageSizes).then(data => {
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalUsersCount(data.totalCount))
