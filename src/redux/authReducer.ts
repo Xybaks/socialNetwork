@@ -49,40 +49,35 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 
 // ThunkCreator  - запрашивет на сервер, залолгинены ли мы. Если да, то меняет через диспатч стэйт
 //!! FormAction - типизация для диспатча ошибки редакс-форм, в ActionTypes ее НЕ СУЕМ!!!
-export const getAuthUserData = (): ThunkType => {
-    return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes >) => {
-        authAPI.me()
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
-                    let {id, email, login} = response.data.data // деструктуризация приходящих данных
-                    dispatch(setAuthUserData(id, email, login, true))
-                }
-            })
+export const getAuthUserData = (): ThunkType =>
+    async (dispatch: ThunkDispatch<RootReduxStateType, unknown, ActionTypes>) => {
+        const response = await authAPI.me()
+
+        if (response.data.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
+            let {id, email, login} = response.data.data // деструктуризация приходящих данных
+            dispatch(setAuthUserData(id, email, login, true))
+        }
     }
-}
 // ThunkCreator  - отправляет  на сервер логин
-export const login = (email: string, password: string, rememberme: boolean): ThunkType => {
-    return (dispatch:ThunkDispatch<RootReduxStateType, unknown, ActionTypes | FormAction>) => {
-        authAPI.login(email, password, rememberme)
-            .then(response => {
-                if (response.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
-                    dispatch(getAuthUserData())
-                } else {
-                    let ErrorMessageFromServer = response.messages.length > 0 ? response.messages[0] : "some error"
-                    dispatch(stopSubmit("login", {_error: ErrorMessageFromServer}));
-                }
-            })
+export const login = (email: string, password: string, rememberme: boolean): ThunkType =>
+    async (dispatch: ThunkDispatch<RootReduxStateType, unknown, ActionTypes | FormAction>) => {
+        const response = await authAPI.login(email, password, rememberme)
+
+        if (response.resultCode === ResultCodesEnum.Success) { // проверка на то, что ответ пришел правильно
+            dispatch(getAuthUserData())
+        } else {
+            let ErrorMessageFromServer = response.messages.length > 0 ? response.messages[0] : "some error"
+            dispatch(stopSubmit("login", {_error: ErrorMessageFromServer}));
+        }
     }
-}
+
 
 // ThunkCreator  - отправляет  на сервер запрос на удаление  логина
-export const logout = (): ThunkType => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(setAuthUserData(null, null, null, false));
-                }
-            })
+export const logout = (): ThunkType =>
+    async (dispatch: ThunkDispatch<RootReduxStateType, unknown, ActionTypes>) => {
+        const response = await authAPI.logout()
+
+        if (response.data.resultCode === ResultCodesEnum.Success) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
     }
-}

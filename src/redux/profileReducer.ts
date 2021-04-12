@@ -39,7 +39,7 @@ let initialState = {
         {id: 5, message: "YO", likesCount: 1}
     ],
     profile: null,
-    status:""
+    status: ""
 }
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
     switch (action.type) {
@@ -57,11 +57,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
-        case SET_STATUS:{
-            return {...state, status:action.status}
+        case SET_STATUS: {
+            return {...state, status: action.status}
         }
-        case DELETE_POST:{
-            return {...state,posts: state.posts.filter((post)=>post.id!==action.postId)}
+        case DELETE_POST: {
+            return {...state, posts: state.posts.filter((post) => post.id !== action.postId)}
         }
         default: // возврат по дефолту (по идее никогда не пригодится)
             return state
@@ -93,32 +93,27 @@ export const deletePost = (postId: number) =>
 // type ThunkType = ThunkAction<void, RootReduxStateType, unknown, ActionTypes>;
 
 // ThunkCreator - функция, возвращающая thunk с обращением к серверу для  получения информации о пользователе
-export const getUserProfile = (userId: number): ThunkType => {
-    return async (dispatch) => {
-        profileAPI.getProfile(userId).then(response => {
-                dispatch(setUserProfile(response.data))
-            }
-        )
+export const getUserProfile = (userId: number): ThunkType =>
+    async (dispatch) => {
+        const response = await profileAPI.getProfile(userId)
+
+        dispatch(setUserProfile(response.data))
     }
-}
+
 // ThunkCreator - функция, возвращающая thunk с обращением к серверу для  получения информации о статусе пользователя
 //по его id
-export const getStatus = (userId: number): ThunkType => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data));
-            })
+export const getStatus = (userId: number): ThunkType =>
+    async (dispatch) => {
+        const response = await profileAPI.getStatus(userId)
+
+        dispatch(setStatus(response.data));
     }
-};
 // ThunkCreator - функция, возвращающая thunk с обращением к серверу для  изменения статуса пользователя на его странице
-export const updateStatus = (status: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status));
-                }
-            })
+export const updateStatus = (status: string): ThunkType =>
+    async (dispatch) => {
+        const response = await profileAPI.updateStatus(status)
+
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
     }
-}

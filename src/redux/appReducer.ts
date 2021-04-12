@@ -5,7 +5,6 @@ import {RootReduxStateType} from "./redux-store";
 import {getAuthUserData} from "./authReducer";
 
 
-
 export const INITIALIZED_SUCCESS = "SOCIAL-NETWORK/APP-REDUCER/INITIALIZED-SUCCESS"
 
 
