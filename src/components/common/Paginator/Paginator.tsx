@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "./User/User.module.css"
+import s from "./Paginator.module.css"
 
 type PaginatorPropsType = {
     pageSizes: number

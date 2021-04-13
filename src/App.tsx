@@ -15,8 +15,9 @@ import {connect} from "react-redux";
 import PreLoader from "./components/common/PreLoader/PreLoader";
 import {initializeApp} from "./redux/appReducer";
 
+// точка входа - index.tsx - куда передан компонент AppStartComponent с данными ot store.ts
 
-// точка входа - index.tsx - куда передан  самописный компонент App с данными ot store.ts
+
 // BrowserRouter  необходим для отрисовки   Route,  предназначенного для перехода между компонентами SPA
 // HeaderContainer -  компонент-контейнер отрисовки  шапки  SPA
 // Profile - компонент " Профиль"

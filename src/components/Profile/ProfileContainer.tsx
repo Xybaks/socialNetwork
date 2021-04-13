@@ -42,7 +42,6 @@ type PathParamsType = {
     userId?: string
 }
 
-//  снова классовый компонент для учебных целей
 class ProfileContainer extends React.Component<ProfileContainerPropsType, {}> {
 
     componentDidMount() {
@@ -68,7 +67,6 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, {}> {
     }
 }
 
-//  с помощью функции compose  мы можем несколько оберток делать друг на друга
 export default compose<React.ComponentType>(
     AuthRedirect,// редирект на страницу логина, если не заавторизован
     connect<MapStatePropsType, MapDispatchPropsType, {}, RootReduxStateType>(mapStateToProps,

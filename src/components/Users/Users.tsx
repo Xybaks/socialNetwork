@@ -2,7 +2,7 @@ import React from 'react';
 
 import {UserType} from "../../redux/usersReducer";
 
-import Paginator from "./Paginator";
+import Paginator from "../common/Paginator/Paginator";
 import User from "./User/User";
 
 type UsersPropsType = {

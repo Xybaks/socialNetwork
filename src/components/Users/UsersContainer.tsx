@@ -56,14 +56,15 @@ let mapStateToProps = (state: RootReduxStateType) => {
     }
 }
 
-// в обучающих целях сделал UsersContainer классовым компонентом
 class UsersContainer extends React.Component<UsersContainerPropsType, {}> {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSizes)
+        const{pageSizes,currentPage}=this.props //  из статьи Дэна Абрамова для недопущения багов
+        this.props.requestUsers(currentPage, pageSizes)
     }
 
     onPageClick = (page: number) => {
-        this.props.requestUsers(page, this.props.pageSizes)
+        const{pageSizes}=this.props //  из статьи Дэна Абрамова для недопущения багов
+        this.props.requestUsers(page, pageSizes)
     }
     render = () => {
         return (
